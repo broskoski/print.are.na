@@ -1,12 +1,7 @@
-import React from 'react';
+import React from "react"
 
 const Book: React.FC = () => {
-
-  return (
-    <div>
-
-    </div>
-  )
+  return <div></div>
 }
 
-export default Book;
+export default Book
