@@ -1386,6 +1386,11 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.3.tgz#bdfd69d61e464dcc81b25159c270d75a73c1a636"
   integrity sha512-Il2DtDVRGDcqjDtE+rF8iqg1CArehSK84HZJCT7AMITlyXRBpuPhqGLDQMowraqqu1coEaimg4ZOqggt6L6L+A==
 
+"@types/lodash@^4.14.138":
+  version "4.14.138"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.138.tgz#34f52640d7358230308344e579c15b378d91989e"
+  integrity sha512-A4uJgHz4hakwNBdHNPdxOTkYmXNgmUAKLbXZ7PKGslgeV0Mb8P3BlbYfPovExek1qnod4pDfRbxuzcVs3dlFLg==
+
 "@types/node@^12.7.5":
   version "12.7.5"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.5.tgz#e19436e7f8e9b4601005d73673b6dc4784ffcc2f"
@@ -2269,7 +2274,12 @@ binary-extensions@^1.0.0:
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.12.0.tgz#c2d780f53d45bba8317a8902d4ceeaf3a6385b14"
   integrity sha512-DYWGk01lDcxeS/K9IHPGWfT8PsJmbXRtRd2Sx72Tnb8pcYZQFF1oSDb8hJtS1vhp212q1Rzi5dUf9+nq0o9UIg==
 
-bindery@^2.2.8:
+bindery-controls@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/bindery-controls/-/bindery-controls-1.1.2.tgz#ec0249a74d33ddc527dca2d52f7dcf5178a9edd0"
+  integrity sha512-oNfqNdD6GeIUQlZltCQSl70gJbLA8Nhk3BcvPb8Vgrae8ot/vwlxa0hilYKWLZIGsjH9kZLhfmjYVL2LvjqOQA==
+
+bindery@2.2.8:
   version "2.2.8"
   resolved "https://registry.yarnpkg.com/bindery/-/bindery-2.2.8.tgz#1feb2f70230a90cd9deeee3416385d595a05114f"
   integrity sha512-54NIWpknAfnEWcgwJ8mcnQY9Yy8rESAofjqxYriINpNMm6LgYolMtw8OmVSJRcRE10n0/IIriJgbx6fIbFXQoA==
