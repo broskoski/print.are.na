@@ -15,7 +15,7 @@ import TitlePage from "components/TitlePage"
 interface BookProps {
   channel: {
     title: string
-    metadata: {
+    metadata?: {
       description: string
     }
     contents: Block[]
@@ -49,7 +49,7 @@ const Book: React.FC<BookProps> = ({ channel }) => {
     <div ref={bookRef}>
       <TitlePage title={channel.title} />
 
-      {channel.metadata.description !== "" && (
+      {channel.metadata && channel.metadata.description !== "" && (
         <>
           <SectionPage title="About" />
           <AboutPage description={channel.metadata.description} />
