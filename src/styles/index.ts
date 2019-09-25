@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components"
+import styled from "styled-components"
 
 const Style = createGlobalStyle`
   * {
@@ -21,4 +22,8 @@ const Style = createGlobalStyle`
   }
 `
 
-export { Style }
+const PageBreak = styled.h1`
+  display: none;
+`
+
+export { Style, PageBreak }

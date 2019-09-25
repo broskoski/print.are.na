@@ -1,25 +1,24 @@
 import React, { useState, useEffect, useRef } from "react"
+import { renderToString } from "react-dom/server"
 import { RouteComponentProps } from "react-router"
 import Bindery from "bindery"
 import Controls from "bindery-controls"
 import { API } from "lib/api"
+import { Block } from "../../types"
+
+import PageHeader from "components/PageHeader"
+import Page from "components/Page"
+import SectionPage from "components/SectionPage"
+import AboutPage from "components/AboutPage"
+import TitlePage from "components/TitlePage"
 
 interface BookProps {
   channel: {
-    contents: [
-      {
-        id: number
-        title: string
-        image?: {
-          thumb: {
-            url: string
-          }
-          display: {
-            url: string
-          }
-        }
-      }
-    ]
+    title: string
+    metadata: {
+      description: string
+    }
+    contents: Block[]
   }
 }
 
@@ -28,30 +27,38 @@ const Book: React.FC<BookProps> = ({ channel }) => {
 
   useEffect(() => {
     if (bookRef.current) {
+      const header = Bindery.RunningHeader({
+        render: (page: any) => {
+          return renderToString(<PageHeader page={page} />)
+        },
+      })
+
       Bindery.makeBook({
         content: bookRef.current,
         ControlsComponent: Controls,
-        view: Bindery.View.FLIPBOOK,
-        rules: [Bindery.PageBreak({ selector: "h1", position: "before" })],
+        rules: [
+          Bindery.PageBreak({ selector: "h1", position: "before" }),
+          Bindery.PageBreak({ selector: ".description", position: "before" }),
+          header,
+        ],
       })
     }
   }, [bookRef])
 
   return (
     <div ref={bookRef}>
-      {channel.contents.map(b => {
-        return (
-          <h1>
-            {b.title}
-            {b.image &&
-              b.image.thumb &&
-              b.image.thumb.url &&
-              b.image.thumb.url.toLowerCase().indexOf("gif") < 0 && (
-                <img src={b.image.thumb.url} alt={b.title} />
-              )}
-          </h1>
-        )
-      })}
+      <TitlePage title={channel.title} />
+
+      {channel.metadata.description !== "" && (
+        <>
+          <SectionPage title="About" />
+          <AboutPage description={channel.metadata.description} />
+        </>
+      )}
+
+      {channel.contents.reverse().map(b => (
+        <Page block={b} key={b.id} />
+      ))}
     </div>
   )
 }

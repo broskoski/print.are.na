@@ -29,7 +29,6 @@ class API {
       this.get(`${BASE}/channels/${slug}?per=${PER}&page=${page}`)
 
     return getChannelPage(1).then(channel => {
-      console.log("getChannelPage", channel)
       mergedContents.push(channel.contents)
 
       const totalPages = Math.ceil((channel.length - 1) / PER)
