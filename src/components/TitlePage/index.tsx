@@ -9,6 +9,11 @@ const Title = styled.h6`
   font-size: 32pt;
 `
 
+const Author = styled.div`
+  margin: 3em 0;
+  font-size: 18pt;
+`
+
 const Container = styled.div`
   display: flex;
   height: 100%;
@@ -17,13 +22,15 @@ const Container = styled.div`
 
 interface TitlePageProps {
   title: string
+  author: string
 }
 
-const TitlePage: React.FC<TitlePageProps> = ({ title }) => {
+const TitlePage: React.FC<TitlePageProps> = ({ title, author }) => {
   return (
     <Container className="page">
       <PageBreak />
       <Title>{title}</Title>
+      <Author>by {author}</Author>
     </Container>
   )
 }

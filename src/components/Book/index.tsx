@@ -18,6 +18,9 @@ interface BookProps {
     metadata?: {
       description: string
     }
+    user: {
+      username: string
+    }
     contents: Block[]
   }
 }
@@ -45,9 +48,11 @@ const Book: React.FC<BookProps> = ({ channel }) => {
     }
   }, [bookRef])
 
+  console.log("channels", channel)
+
   return (
     <div ref={bookRef}>
-      <TitlePage title={channel.title} />
+      <TitlePage title={channel.title} author={channel.user.username} />
 
       {channel.metadata && channel.metadata.description !== "" && (
         <>

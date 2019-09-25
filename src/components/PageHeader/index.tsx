@@ -29,13 +29,13 @@ const PageHeader: React.FC<PageHeaderProps> = ({ page }) => {
       {page.isLeft && (
         <>
           {pageNumber}
-          <Title>{title}</Title>
+          <Title dangerouslySetInnerHTML={{ __html: title }} />
         </>
       )}
 
       {page.isRight && (
         <>
-          <Title>{title}</Title>
+          <Title dangerouslySetInnerHTML={{ __html: title }} />
           {pageNumber}
         </>
       )}
