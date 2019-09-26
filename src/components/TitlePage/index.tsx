@@ -5,7 +5,6 @@ import { PageBreak } from "styles/index"
 
 const Title = styled.h6`
   margin: 0;
-  font-family: "Arial Black";
   font-size: 32pt;
 `
 

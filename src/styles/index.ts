@@ -4,12 +4,18 @@ import styled from "styled-components"
 const Style = createGlobalStyle`
   html {
     font-family: 'Arial';
-    font-size: 14px;
+    font-size: 14pt;
   }
 
   body {
     margin: 0;
     padding: 0;
+  }
+
+  .📖-right .📖-running-header {
+    text-align: left;
+    width: var(--bindery-page-width);
+    right: 0;
   }
 `
 

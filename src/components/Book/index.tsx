@@ -48,8 +48,6 @@ const Book: React.FC<BookProps> = ({ channel }) => {
     }
   }, [bookRef])
 
-  console.log("channels", channel)
-
   return (
     <div ref={bookRef}>
       <TitlePage title={channel.title} author={channel.user.username} />

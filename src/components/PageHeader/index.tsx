@@ -3,12 +3,21 @@ import styled from "styled-components"
 
 import { PageType } from "../../types"
 
+import { truncate } from "lib/string"
+
 const Title = styled.span`
   padding: 0 1em;
 `
 
+const RightNumber = styled.span`
+  padding-right: var(--bindery-margin-inner);
+`
+
 const Container = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12pt;
 `
 
 interface PageHeaderProps {
@@ -16,7 +25,7 @@ interface PageHeaderProps {
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({ page }) => {
-  const title = page.heading.h1 || ""
+  const title = truncate(page.heading.h1) || ""
   const pageNumber = page.isEmpty ? null : page.number
   const shouldBeEmpty = !!page.heading.h6
 
@@ -36,7 +45,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ page }) => {
       {page.isRight && (
         <>
           <Title dangerouslySetInnerHTML={{ __html: title }} />
-          {pageNumber}
+          <RightNumber>{pageNumber}</RightNumber>
         </>
       )}
     </Container>
