@@ -41,7 +41,11 @@ const Book: React.FC<BookProps> = ({ channel }) => {
         ControlsComponent: Controls,
         rules: [
           Bindery.PageBreak({ selector: "h1", position: "before" }),
-          Bindery.PageBreak({ selector: ".description", position: "before" }),
+          Bindery.Footnote({
+            selector: ".description",
+            render: (element: any, number: number) => element,
+            replace: (element: any) => element,
+          }),
           header,
         ],
       })

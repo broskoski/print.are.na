@@ -17,6 +17,10 @@ const Style = createGlobalStyle`
     width: var(--bindery-page-width);
     right: 0;
   }
+
+  .📖-footer p {
+    margin-bottom: 8pt;
+  }
 `
 
 const PageBreak = styled.h1`

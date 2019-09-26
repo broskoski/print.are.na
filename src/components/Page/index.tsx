@@ -38,6 +38,7 @@ const P = styled.p`
 //   font-weight: normal;
 //   font-size: 10pt;
 //   line-height: 1.25;
+//   display: none;
 // `
 
 interface PageProps {
