@@ -28,6 +28,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ page }) => {
   const isFileName =
     page.heading.h1 &&
     (page.heading.h1.toLowerCase().indexOf(".jpg") > 0 ||
+      page.heading.h1.toLowerCase().indexOf(".jpeg") > 0 ||
       page.heading.h1.toLowerCase().indexOf(".png") > 0 ||
       page.heading.h1.toLowerCase().indexOf(".gif") > 0)
   const title = isFileName ? "" : truncate(page.heading.h1) || ""
