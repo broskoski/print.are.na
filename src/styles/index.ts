@@ -12,10 +12,23 @@ const Style = createGlobalStyle`
     padding: 0;
   }
 
+  .📖-running-header {
+    border-bottom: 1px solid blue;
+    min-height: 0.35in;
+  }
+
   .📖-right .📖-running-header {
     text-align: left;
     width: var(--bindery-page-width);
     right: 0;
+  }
+
+  .📖-flow-box {
+    margin-bottom: var(--bindery-margin-outer);
+  }
+
+  .📖-footer {
+    display: none;
   }
 
   .📖-footer p {
