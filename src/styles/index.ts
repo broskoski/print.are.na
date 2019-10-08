@@ -52,7 +52,6 @@ const Style = createGlobalStyle`
 
   .📖-flow-box {
     margin-bottom: var(--bindery-margin-outer);
-    overflow: hidden;
   }
 
   .📖-footer {
