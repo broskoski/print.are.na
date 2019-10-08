@@ -4,7 +4,7 @@ import styled from "styled-components"
 const Style = createGlobalStyle`
   html {
     font-family: 'Arial';
-    font-size: 14pt;
+    font-size: 13pt;
   }
 
   body {
@@ -12,19 +12,47 @@ const Style = createGlobalStyle`
     padding: 0;
   }
 
+  ol {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: upper-roman;
+    padding-left: 0.35in;
+  }
+
+  blockquote {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .📖-root .book-container {
+    opacity: 1;
+  }
+
   .📖-running-header {
-    border-bottom: 1px solid blue;
+    top: 0.35in;
     min-height: 0.35in;
   }
 
   .📖-right .📖-running-header {
-    text-align: left;
+    text-align: right;
     width: var(--bindery-page-width);
-    right: 0;
+  }
+
+  .📖-page.📖-left .page-header {
+    padding-left: 0.35in;
+  }
+
+  .page.📖-continuation.📖-continues {
+    margin-top: 0.335in;
+  }
+
+  .toc-page.page.📖-continuation.📖-continues {
+    margin-top: 0;
   }
 
   .📖-flow-box {
     margin-bottom: var(--bindery-margin-outer);
+    overflow: hidden;
   }
 
   .📖-footer {
@@ -36,7 +64,7 @@ const Style = createGlobalStyle`
   }
 `
 
-const PageBreak = styled.h1`
+const PageBreak = styled.hr`
   display: none;
 `
 

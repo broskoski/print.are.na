@@ -3,20 +3,10 @@ import styled from "styled-components"
 
 import { PageType } from "../../types"
 
-import { truncate } from "lib/string"
-
-const Title = styled.span`
-  padding: 0 1em;
-`
-
-const RightNumber = styled.span`
-  padding-right: var(--bindery-margin-inner);
-`
-
-const Container = styled.div`
+const Container = styled.div<{ isRight: boolean }>`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: ${props => (props.isRight ? "flex-end" : "flex-start")};
   font-size: 12pt;
 `
 
@@ -25,13 +15,6 @@ interface PageHeaderProps {
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({ page }) => {
-  const isFileName =
-    page.heading.h1 &&
-    (page.heading.h1.toLowerCase().indexOf(".jpg") > 0 ||
-      page.heading.h1.toLowerCase().indexOf(".jpeg") > 0 ||
-      page.heading.h1.toLowerCase().indexOf(".png") > 0 ||
-      page.heading.h1.toLowerCase().indexOf(".gif") > 0)
-  const title = isFileName ? "" : truncate(page.heading.h1) || ""
   const pageNumber = page.isEmpty ? null : page.number
   const shouldBeEmpty = !!page.heading.h6
 
@@ -39,23 +22,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ page }) => {
     return null
   }
 
-  return (
-    <Container>
-      {page.isLeft && (
-        <>
-          {pageNumber}
-          <Title dangerouslySetInnerHTML={{ __html: title }} />
-        </>
-      )}
-
-      {page.isRight && (
-        <>
-          <Title dangerouslySetInnerHTML={{ __html: title }} />
-          <RightNumber>{pageNumber}</RightNumber>
-        </>
-      )}
-    </Container>
-  )
+  return <Container isRight={page.isRight}>{pageNumber}</Container>
 }
 
 export default PageHeader

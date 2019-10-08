@@ -6,7 +6,7 @@ import { PageBreak } from "styles/index"
 const Title = styled.h6`
   font-weight: normal;
   margin: 0;
-  font-size: 14pt;
+  font-size: 13pt;
 `
 
 const Container = styled.div`
@@ -22,8 +22,8 @@ interface SectionPageProps {
 const SectionPage: React.FC<SectionPageProps> = ({ title }) => {
   return (
     <Container className="page">
-      <PageBreak />
       <Title>{title}</Title>
+      <PageBreak />
     </Container>
   )
 }
