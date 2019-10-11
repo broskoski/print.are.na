@@ -41,10 +41,18 @@ const BigP = styled(P)`
 `
 
 const Description = styled(P)`
-  margin-top: 0.375in;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 5.25in;
+  width: 100%;
   font-weight: normal;
   font-size: 9pt;
   line-height: 1.25;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 0.375in;
 `
 
 interface PageProps {
@@ -58,6 +66,7 @@ const Page: React.FC<PageProps> = ({ block }) => {
   const blockIsLargeType =
     block.class === "Text" && block.content_html.length < TEXT_THRESHOLD
 
+  const hasDescription = block.description_html !== ""
   const smallDescription = block.description_html.length < DESCRIPTION_THRESHOLD
 
   return (
@@ -78,14 +87,14 @@ const Page: React.FC<PageProps> = ({ block }) => {
         <P dangerouslySetInnerHTML={{ __html: block.content_html }} />
       )}
 
-      {block.description_html !== "" && smallDescription && (
+      {hasDescription && smallDescription && (
         <Description
           className="description"
           dangerouslySetInnerHTML={{ __html: block.description_html }}
         />
       )}
 
-      {block.description_html !== "" && !smallDescription && (
+      {hasDescription && !smallDescription && (
         <>
           <PageBreak />
           <Description

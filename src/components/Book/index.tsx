@@ -26,8 +26,10 @@ interface BookProps {
     metadata?: {
       description: string
     }
-    user: {
-      username: string
+    owner: {
+      class: "User" | "Group"
+      username?: string
+      name?: string
     }
     contents: Block[]
   }
@@ -35,6 +37,8 @@ interface BookProps {
 
 const Book: React.FC<BookProps> = ({ channel }) => {
   const bookRef = useRef(null)
+
+  console.log("channel", channel)
 
   useEffect(() => {
     if (bookRef.current) {
@@ -109,10 +113,14 @@ const Book: React.FC<BookProps> = ({ channel }) => {
 
   const hasTOC = contents.filter(b => !!b.title).length > 0
   const hasAboutPage = channel.metadata && channel.metadata.description !== ""
+  const author =
+    (channel.owner.class === "User"
+      ? channel.owner.username
+      : channel.owner.name) || ""
 
   return (
     <BookContainer className="book-container" ref={bookRef}>
-      <TitlePage title={channel.title} author={channel.user.username} />
+      <TitlePage title={channel.title} author={author} />
 
       {hasAboutPage && (
         <>
