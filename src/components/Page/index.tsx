@@ -34,11 +34,15 @@ const P = styled.p`
 const BigP = styled(P)`
   font-size: 30pt;
   line-height: 1.1;
+  > p:first-child {
+    margin: 0;
+  }
 `
 
 const SmallType = styled.div`
   font-size: 8pt;
   line-height: 1.25;
+  margin: 0.5em 0;
 `
 
 const Source = styled(SmallType)`
@@ -67,7 +71,7 @@ interface PageProps {
 }
 
 const TEXT_THRESHOLD = 70
-const DESCRIPTION_THRESHOLD = 370
+const DESCRIPTION_THRESHOLD = 320
 
 const Page: React.FC<PageProps> = ({ block }) => {
   const blockIsLargeType =
@@ -100,13 +104,14 @@ const Page: React.FC<PageProps> = ({ block }) => {
         {hasDescription && (
           <div dangerouslySetInnerHTML={{ __html: block.description_html }} />
         )}
-        <SmallType>Added by {block.user.username}</SmallType>
+
         {block.source && block.source.url && (
           <Source>
             Source: {` `}
             <a href={block.source.url}>{block.source.title}</a>
           </Source>
         )}
+        <SmallType>Added by {block.user.username}</SmallType>
       </Description>
 
       <PageBreak />
