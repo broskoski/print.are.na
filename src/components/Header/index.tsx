@@ -11,6 +11,7 @@ const Container = styled.div`
   margin-bottom: 0.175in;
   max-width: 2.65in;
   min-height: 0.175in;
+  overflow: hidden;
 `
 
 const Anchor = styled.a`
