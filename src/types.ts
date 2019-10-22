@@ -33,4 +33,11 @@ export interface Block {
       url: string
     }
   }
+  source?: {
+    url: string
+    title: string
+  }
+  user: {
+    username: string
+  }
 }
