@@ -29,10 +29,6 @@ const P = styled.p`
   margin: 0;
   font-size: 13pt;
   line-height: 1.25;
-
-  > p:first-child {
-    margin: 0;
-  }
 `
 
 const BigP = styled(P)`
@@ -40,19 +36,30 @@ const BigP = styled(P)`
   line-height: 1.1;
 `
 
-const Description = styled(P)`
+const SmallType = styled.div`
+  font-size: 8pt;
+  line-height: 1.25;
+`
+
+const Source = styled(SmallType)`
+  word-break: break-all;
+`
+
+const Description = styled(SmallType)`
   position: absolute;
   top: 0;
   bottom: 0;
   height: 5.25in;
   width: 100%;
   font-weight: normal;
-  font-size: 9pt;
-  line-height: 1.25;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding-bottom: 0.375in;
+
+  > p:first-child {
+    margin: 0;
+  }
 `
 
 interface PageProps {
@@ -67,7 +74,7 @@ const Page: React.FC<PageProps> = ({ block }) => {
     block.class === "Text" && block.content_html.length < TEXT_THRESHOLD
 
   const hasDescription = block.description_html !== ""
-  const smallDescription = block.description_html.length < DESCRIPTION_THRESHOLD
+  const longDescription = block.description_html.length > DESCRIPTION_THRESHOLD
 
   return (
     <ContainerWithMargin className="page">
@@ -87,22 +94,21 @@ const Page: React.FC<PageProps> = ({ block }) => {
         <P dangerouslySetInnerHTML={{ __html: block.content_html }} />
       )}
 
-      {hasDescription && smallDescription && (
-        <Description
-          className="description"
-          dangerouslySetInnerHTML={{ __html: block.description_html }}
-        />
-      )}
+      {longDescription && <PageBreak />}
 
-      {hasDescription && !smallDescription && (
-        <>
-          <PageBreak />
-          <Description
-            className="description"
-            dangerouslySetInnerHTML={{ __html: block.description_html }}
-          />
-        </>
-      )}
+      <Description>
+        {hasDescription && (
+          <div dangerouslySetInnerHTML={{ __html: block.description_html }} />
+        )}
+        <SmallType>Added by {block.user.username}</SmallType>
+        {block.source && block.source.url && (
+          <Source>
+            Source: {` `}
+            <a href={block.source.url}>{block.source.title}</a>
+          </Source>
+        )}
+      </Description>
+
       <PageBreak />
     </ContainerWithMargin>
   )
