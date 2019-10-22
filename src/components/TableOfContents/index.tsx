@@ -16,11 +16,13 @@ const ContentsLine = styled.a`
   justify-content: space-between;
   text-decoration: none;
   color: black;
-  // margin-bottom: 0.0875in;
 `
 
 const Title = styled.span`
   margin-right: 0.175in;
+  max-width: 3in;
+  text-overflow: ellipsis;
+  overflow: hidden;
 `
 
 interface TableOfContentsProps {
