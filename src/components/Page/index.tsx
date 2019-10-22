@@ -47,7 +47,7 @@ const Description = styled(P)`
   height: 5.25in;
   width: 100%;
   font-weight: normal;
-  font-size: 9pt;
+  font-size: 8pt;
   line-height: 1.25;
   display: flex;
   flex-direction: column;
