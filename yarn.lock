@@ -1423,6 +1423,14 @@
     lodash.unescape "4.0.1"
     semver "^6.3.0"
 
+"@use-hooks/image-size@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@use-hooks/image-size/-/image-size-1.0.5.tgz#6b1bf7e16ef32f4c47a93ac13e414a914a317fc2"
+  integrity sha512-pkTa1OiOtndg2nsPpmGOHRZWC58IiehmARrH7ype7oMfU3+a5l8khxxcdKW9BcNJ9SRa9tZnsjLRp3IAJxtKsA==
+  dependencies:
+    react "^16.8.1"
+    react-dom "^16.8.1"
+
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.8.5.tgz#51b1c5fe6576a34953bf4b253df9f0d490d9e359"
@@ -2184,10 +2192,10 @@ bindery-controls@^1.1.2:
   resolved "https://registry.yarnpkg.com/bindery-controls/-/bindery-controls-1.1.2.tgz#ec0249a74d33ddc527dca2d52f7dcf5178a9edd0"
   integrity sha512-oNfqNdD6GeIUQlZltCQSl70gJbLA8Nhk3BcvPb8Vgrae8ot/vwlxa0hilYKWLZIGsjH9kZLhfmjYVL2LvjqOQA==
 
-bindery@2.2.8:
-  version "2.2.8"
-  resolved "https://registry.yarnpkg.com/bindery/-/bindery-2.2.8.tgz#1feb2f70230a90cd9deeee3416385d595a05114f"
-  integrity sha512-54NIWpknAfnEWcgwJ8mcnQY9Yy8rESAofjqxYriINpNMm6LgYolMtw8OmVSJRcRE10n0/IIriJgbx6fIbFXQoA==
+bindery@2.2.9:
+  version "2.2.9"
+  resolved "https://registry.yarnpkg.com/bindery/-/bindery-2.2.9.tgz#44f65038c26dd2f59e6637a3e7814b21b3232bfa"
+  integrity sha512-/weTdoJvDv2V7LoMMS+Fk3IkHJ5lJ8P89Cfa8zV9JnxD2IDt1pHodryzcD1Gd0dr7fN/FGkS5DVSu4+7PiDBWA==
   dependencies:
     regionize "^0.1.3"
 
@@ -8508,6 +8516,16 @@ react-dev-utils@^9.1.0:
     strip-ansi "5.2.0"
     text-table "0.2.0"
 
+react-dom@^16.8.1:
+  version "16.12.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.12.0.tgz#0da4b714b8d13c2038c9396b54a92baea633fe11"
+  integrity sha512-LMxFfAGrcS3kETtQaCkTKjMiifahaMySFDn71fZUNpPHZQEzmk/GiAeIT8JSOrHB23fnuCOMruL2a8NYlw+8Gw==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.18.0"
+
 react-dom@^16.9.0:
   version "16.9.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.9.0.tgz#5e65527a5e26f22ae3701131bcccaee9fb0d3962"
@@ -8617,6 +8635,15 @@ react-scripts@3.2.0:
     workbox-webpack-plugin "4.3.1"
   optionalDependencies:
     fsevents "2.0.7"
+
+react@^16.8.1:
+  version "16.12.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"
+  integrity sha512-fglqy3k5E+81pA8s+7K0/T3DBCF0ZDOher1elBFzF7O6arXJgzyu/FW+COxFvAWXJoJN9KIZbT2LXlukwphYTA==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
 
 react@^16.9.0:
   version "16.9.0"
@@ -9112,6 +9139,14 @@ scheduler@^0.15.0:
   version "0.15.0"
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.15.0.tgz#6bfcf80ff850b280fed4aeecc6513bc0b4f17f8e"
   integrity sha512-xAefmSfN6jqAa7Kuq7LIJY0bwAPG3xlCj0HMEBQk1lxYiDKZscY2xJ5U/61ZTrYbmNQbXa+gc7czPkVo11tnCg==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+
+scheduler@^0.18.0:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.18.0.tgz#5901ad6659bc1d8f3fdaf36eb7a67b0d6746b1c4"
+  integrity sha512-agTSHR1Nbfi6ulI0kYNK0203joW2Y5W4po4l+v03tOoiJKpTBbxpNhWDvqc/4IcOw+KLmSiQLTasZ4cab2/UWQ==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
