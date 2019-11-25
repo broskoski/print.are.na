@@ -12,6 +12,9 @@ const Container = styled.div`
   max-width: 2.65in;
   min-height: 0.175in;
   overflow: hidden;
+
+  // adjust to align with page numbers
+  margin-top: -0.1em;
 `
 
 const Anchor = styled.a`

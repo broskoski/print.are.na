@@ -19,6 +19,12 @@ export interface Block {
   title: string
   content_html: string
   description_html: string
+  hasImage?: boolean
+  imageUrl?: string
+  dimensions?: {
+    width: number
+    height: number
+  }
   image?: {
     thumb: {
       url: string

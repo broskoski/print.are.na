@@ -5,13 +5,13 @@ import { PageBreak } from "styles/index"
 
 const Title = styled.h6`
   margin: 0;
-  font-size: 18pt;
+  font-size: 13pt;
   font-weight: normal;
 `
 
 const Author = styled.div`
   margin: 0;
-  font-size: 18pt;
+  font-size: 13pt;
 `
 
 const Container = styled.div`
@@ -22,6 +22,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-left: calc(var(--bindery-margin-inner) * -0.38);
 `
 
 interface TitlePageProps {

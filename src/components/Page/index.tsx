@@ -29,6 +29,13 @@ const P = styled.p`
   margin: 0;
   font-size: 13pt;
   line-height: 1.25;
+
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
 `
 
 const BigP = styled(P)`
@@ -43,10 +50,17 @@ const SmallType = styled.div`
   font-size: 8pt;
   line-height: 1.25;
   margin: 0.5em 0;
+
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
 `
 
 const Source = styled(SmallType)`
-  word-break: break-all;
+  margin-top: 0;
 `
 
 const Description = styled(SmallType)`
@@ -72,13 +86,30 @@ interface PageProps {
 
 const TEXT_THRESHOLD = 70
 const DESCRIPTION_THRESHOLD = 320
+const LONG_IMAGE_DESCRIPTION_THRESHOLD = 130
+const VERY_LONG_DESCRIPTION_THRESHOLD = 820
 
 const Page: React.FC<PageProps> = ({ block }) => {
   const blockIsLargeType =
     block.class === "Text" && block.content_html.length < TEXT_THRESHOLD
 
   const hasDescription = block.description_html !== ""
-  const longDescription = block.description_html.length > DESCRIPTION_THRESHOLD
+  const imageRatio =
+    block.dimensions &&
+    block.dimensions.width &&
+    block.dimensions.width / block.dimensions.height
+
+  const longImage = imageRatio && imageRatio < 1
+  const veryLongImage = imageRatio && imageRatio < 0.67
+
+  const longDescription =
+    hasDescription && longImage
+      ? block.description_html.length > LONG_IMAGE_DESCRIPTION_THRESHOLD
+      : block.description_html.length > DESCRIPTION_THRESHOLD
+
+  const veryLongDescription =
+    hasDescription &&
+    block.description_html.length > VERY_LONG_DESCRIPTION_THRESHOLD
 
   return (
     <ContainerWithMargin className="page">
@@ -86,9 +117,7 @@ const Page: React.FC<PageProps> = ({ block }) => {
 
       <Header title={block.title} id={block.id} />
 
-      {block.image && block.image.large && block.image.large.url && (
-        <Img src={block.image.large.url} alt={block.title} />
-      )}
+      {block.hasImage && <Img src={block.imageUrl} alt={block.title} />}
 
       {blockIsLargeType && (
         <BigP dangerouslySetInnerHTML={{ __html: block.content_html }} />
@@ -98,17 +127,23 @@ const Page: React.FC<PageProps> = ({ block }) => {
         <P dangerouslySetInnerHTML={{ __html: block.content_html }} />
       )}
 
-      {longDescription && <PageBreak />}
+      {(longDescription || veryLongImage) && <PageBreak />}
+
+      {veryLongDescription && (
+        <P dangerouslySetInnerHTML={{ __html: block.description_html }} />
+      )}
 
       <Description>
-        {hasDescription && (
+        {hasDescription && !veryLongDescription && (
           <div dangerouslySetInnerHTML={{ __html: block.description_html }} />
         )}
 
-        {block.source && block.source.url && (
+        {block.source && block.source.url && block.source.url !== "" && (
           <Source>
             Source: {` `}
-            <a href={block.source.url}>{block.source.title}</a>
+            <a href={block.source.url}>
+              {block.source.title || block.source.url}
+            </a>
           </Source>
         )}
         <SmallType>Added by {block.user.username}</SmallType>

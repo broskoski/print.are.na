@@ -3,8 +3,8 @@ import styled from "styled-components"
 import { renderToString } from "react-dom/server"
 import { RouteComponentProps } from "react-router"
 import Bindery from "bindery"
-import Controls from "bindery-controls"
 import { API } from "lib/api"
+import { parseChannelContents } from "lib/parseChannelContents"
 import { Block } from "../../types"
 
 import LoadingPage from "components/LoadingPage"
@@ -31,14 +31,12 @@ interface BookProps {
       username?: string
       name?: string
     }
-    contents: Block[]
   }
+  contents: Block[]
 }
 
-const Book: React.FC<BookProps> = ({ channel }) => {
+const Book: React.FC<BookProps> = ({ channel, contents }) => {
   const bookRef = useRef(null)
-
-  console.log("channel", channel)
 
   useEffect(() => {
     if (bookRef.current) {
@@ -50,7 +48,6 @@ const Book: React.FC<BookProps> = ({ channel }) => {
 
       Bindery.makeBook({
         content: bookRef.current,
-        ControlsComponent: Controls,
         pageSetup: {
           margin: {
             top: "0.35in",
@@ -91,25 +88,6 @@ const Book: React.FC<BookProps> = ({ channel }) => {
       })
     }
   }, [bookRef])
-
-  const contents = channel.contents
-    .filter(b => b.class !== "Channel")
-    .map(b => {
-      const isFileName =
-        b.title &&
-        (b.title.toLowerCase().indexOf(".jpg") > 0 ||
-          b.title.toLowerCase().indexOf(".jpeg") > 0 ||
-          b.title.toLowerCase().indexOf(".png") > 0 ||
-          b.title.toLowerCase().indexOf(".gif") > 0 ||
-          b.title.toLowerCase().indexOf(".pdf") > 0)
-
-      const title = isFileName ? "" : unescape(b.title)
-
-      return {
-        ...b,
-        title,
-      }
-    })
 
   const hasTOC = contents.filter(b => !!b.title).length > 0
   const hasAboutPage = channel.metadata && channel.metadata.description !== ""
@@ -155,6 +133,7 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
   },
 }) => {
   const [channel, setChannel] = useState<any | null>(null)
+  const [contents, setContents] = useState<null | Block[]>(null)
 
   const api = new API()
 
@@ -164,10 +143,18 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
     }
   }, [channel, slug, api])
 
+  useEffect(() => {
+    if (channel && channel.contents) {
+      parseChannelContents(channel.contents).then(parsedContents =>
+        setContents(parsedContents)
+      )
+    }
+  }, [channel])
+
   return (
     <>
-      {!channel && <LoadingPage slug={slug} />}
-      {channel && <Book channel={channel} />}
+      {(!channel || !contents) && <LoadingPage slug={slug} />}
+      {channel && contents && <Book channel={channel} contents={contents} />}
     </>
   )
 }
