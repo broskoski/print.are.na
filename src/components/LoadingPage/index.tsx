@@ -14,17 +14,14 @@ const Container = styled.div`
   right: 0;
   bottom: 0;
   display: flex;
-  height: 100%;
   flex-direction: column;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
+  padding: 2em;
+  align-items: flex-start;
+  justify-content: flex-start;
 `
 
-const Slug = styled.code`
-  background: black;
-  padding: 0.25em;
-  color: lime;
+const Slug = styled.span`
+  color: rgb(66, 133, 60);
 `
 
 interface LoadingPageProps {
