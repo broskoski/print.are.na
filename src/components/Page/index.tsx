@@ -95,16 +95,20 @@ const Page: React.FC<PageProps> = ({ block }) => {
 
   const hasDescription = block.description_html !== ""
   const imageRatio =
-    block.dimensions && block.dimensions.width / block.dimensions.height
+    block.dimensions &&
+    block.dimensions.width &&
+    block.dimensions.width / block.dimensions.height
 
   const longImage = imageRatio && imageRatio < 1
   const veryLongImage = imageRatio && imageRatio < 0.67
 
-  const longDescription = longImage
-    ? block.description_html.length > LONG_IMAGE_DESCRIPTION_THRESHOLD
-    : block.description_html.length > DESCRIPTION_THRESHOLD
+  const longDescription =
+    hasDescription && longImage
+      ? block.description_html.length > LONG_IMAGE_DESCRIPTION_THRESHOLD
+      : block.description_html.length > DESCRIPTION_THRESHOLD
 
   const veryLongDescription =
+    hasDescription &&
     block.description_html.length > VERY_LONG_DESCRIPTION_THRESHOLD
 
   return (
