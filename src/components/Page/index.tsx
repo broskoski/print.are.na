@@ -123,7 +123,7 @@ const Page: React.FC<PageProps> = ({ block }) => {
         <BigP dangerouslySetInnerHTML={{ __html: block.content_html }} />
       )}
 
-      {!blockIsLargeType && (
+      {!blockIsLargeType && !block.hasImage && (
         <P dangerouslySetInnerHTML={{ __html: block.content_html }} />
       )}
 
