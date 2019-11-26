@@ -3,13 +3,17 @@ import { Block } from "../types"
 const getImageDimensions = (src?: string) => {
   return new Promise<{ height: number | null; width: number | null }>(
     (resolve, reject) => {
-      if (!src) {
+      try {
+        if (!src) {
+          return resolve({ height: null, width: null })
+        }
+        let img = new Image()
+        img.onload = () => resolve({ height: img.height, width: img.width })
+        img.onerror = () => resolve({ height: null, width: null })
+        img.src = src
+      } catch {
         return resolve({ height: null, width: null })
       }
-      let img = new Image()
-      img.onload = () => resolve({ height: img.height, width: img.width })
-      img.onerror = reject
-      img.src = src
     }
   )
 }
