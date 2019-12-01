@@ -34,7 +34,7 @@ const TitlePage: React.FC<TitlePageProps> = ({ title, author }) => {
   return (
     <Container className="page">
       <Title>{title}</Title>
-      <Author>by {author}</Author>
+      <Author>{author}</Author>
       <PageBreak />
     </Container>
   )

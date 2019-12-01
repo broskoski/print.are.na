@@ -74,6 +74,11 @@ const Description = styled(SmallType)`
   flex-direction: column;
   justify-content: flex-end;
   padding-bottom: 0.375in;
+  pointer-events: none;
+
+  > * {
+    pointer-events: all;
+  }
 
   > p:first-child {
     margin: 0;

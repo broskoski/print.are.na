@@ -1,6 +1,8 @@
 import React from "react"
 import styled from "styled-components"
 
+import { Link } from "styles/index"
+
 const Title = styled.span``
 
 const Container = styled.div`
@@ -29,7 +31,13 @@ interface PageHeaderProps {
 const Header: React.FC<PageHeaderProps> = ({ title, id }) => {
   return (
     <Container className="page-header">
-      <Title dangerouslySetInnerHTML={{ __html: title }} />
+      <Link
+        href={`https://www.are.na/block/${id}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Title dangerouslySetInnerHTML={{ __html: title }} />
+      </Link>
       <Anchor id={id.toString()} />
     </Container>
   )
