@@ -31,6 +31,7 @@ const Style = createGlobalStyle`
   .📖-running-header {
     top: 0.35in;
     min-height: 0.35in;
+    pointer-events: none;
   }
 
   .📖-right .📖-running-header {
@@ -67,4 +68,9 @@ const PageBreak = styled.hr`
   display: none;
 `
 
-export { Style, PageBreak }
+const Link = styled.a`
+  text-decoration: none;
+  color: inherit;
+`
+
+export { Style, PageBreak, Link }
