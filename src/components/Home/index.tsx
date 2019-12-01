@@ -18,12 +18,14 @@ const Text = styled.div`
   margin: 0;
   font-size: 18pt;
   font-weight: normal;
-  padding: 0.25em 0;
-  line-height: 1.35;
+  line-height: 1.75;
   box-sizing: border-box;
 `
 
-const Title = styled(Text)``
+const Title = styled(Text)`
+  padding-top: 0;
+  line-height: 1;
+`
 
 const Instructions = styled.div`
   margin: 2em 0;
@@ -47,12 +49,8 @@ const Top = styled.div``
 
 const Bottom = styled(Text)`
   line-height: 1.35;
-  font-size: 14pt;
+  font-size: 12pt;
   max-width: 40em;
-`
-
-const P = styled.p`
-  margin-bottom: 0;
 `
 
 const URLForm: React.FC<RouterProps> = ({ history }) => {
@@ -77,6 +75,7 @@ const URLForm: React.FC<RouterProps> = ({ history }) => {
         name="url"
         placeholder=""
       />
+      →
     </Form>
   )
 }
@@ -89,7 +88,7 @@ const Home: React.FC<RouterProps> = props => {
 
         <Instructions>
           <Text>
-            1. Enter the public URL of an Are.na channel: <URLForm {...props} />
+            1. Enter the URL of a public Are.na channel: <URLForm {...props} />
           </Text>
           <Text>2. View PDF preview.</Text>
           <Text>
@@ -112,10 +111,8 @@ const Home: React.FC<RouterProps> = props => {
           print.are.na
         </a>{" "}
         for the 2017 Cybernetics Conference.{" "}
-        <P>
-          <a href="http://mindyseu.com">Mindy Seu</a> designed and facilitated
-          the current version.
-        </P>
+        <a href="http://mindyseu.com">Mindy Seu</a> designed and facilitated the
+        current version.
       </Bottom>
     </Container>
   )
