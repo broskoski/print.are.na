@@ -48,9 +48,18 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
 
       Bindery.makeBook({
         content: bookRef.current,
+        printSetup: {
+          layout: Bindery.Layout.PAGES,
+          paper: Bindery.Paper.AUTO_BLEED,
+          bleed: "0.25in",
+        },
         pageSetup: {
+          size: {
+            width: "4.25in",
+            height: "6.875in",
+          },
           margin: {
-            top: "0.35in",
+            top: "0.3in",
             inner: "0.65in",
             outer: "0.35in",
             bottom: "0.35in",

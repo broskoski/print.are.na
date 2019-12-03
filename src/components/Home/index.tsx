@@ -18,7 +18,7 @@ const Text = styled.div`
   margin: 0;
   font-size: 18pt;
   font-weight: normal;
-  line-height: 1.75;
+  line-height: 1.25;
   box-sizing: border-box;
 `
 
@@ -38,10 +38,10 @@ const Form = styled.form`
 
 const Input = styled.input`
   font-size: 18pt;
-  width: 13em;
+  width: 10em;
   border: 0 transparent;
   border-bottom: 1px solid black;
-  line-height: 1.35;
+  line-height: 1.25;
   height: 1em;
 `
 
@@ -51,6 +51,10 @@ const Bottom = styled(Text)`
   line-height: 1.35;
   font-size: 12pt;
   max-width: 40em;
+`
+
+const Arrow = styled.span`
+  font-family: monospace;
 `
 
 const URLForm: React.FC<RouterProps> = ({ history }) => {
@@ -75,7 +79,7 @@ const URLForm: React.FC<RouterProps> = ({ history }) => {
         name="url"
         placeholder=""
       />
-      →
+      <Arrow>→</Arrow>
     </Form>
   )
 }
