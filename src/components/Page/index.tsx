@@ -5,7 +5,7 @@ import Header from "components/Header"
 
 import { PageBreak } from "styles/index"
 
-import { Block } from "../../types"
+import { Block, URLOptions } from "../../types"
 
 const HiddenTitle = styled.h1`
   display: none;
@@ -87,6 +87,7 @@ const Description = styled(SmallType)`
 
 interface PageProps {
   block: Block
+  options: URLOptions
 }
 
 const TEXT_THRESHOLD = 70
@@ -94,7 +95,7 @@ const DESCRIPTION_THRESHOLD = 320
 const LONG_IMAGE_DESCRIPTION_THRESHOLD = 130
 const VERY_LONG_DESCRIPTION_THRESHOLD = 820
 
-const Page: React.FC<PageProps> = ({ block }) => {
+const Page: React.FC<PageProps> = ({ block, options }) => {
   const blockIsLargeType =
     block.class === "Text" && block.content_html.length < TEXT_THRESHOLD
 
@@ -139,19 +140,25 @@ const Page: React.FC<PageProps> = ({ block }) => {
       )}
 
       <Description>
-        {hasDescription && !veryLongDescription && (
+        {options.blockDescription && hasDescription && !veryLongDescription && (
           <div dangerouslySetInnerHTML={{ __html: block.description_html }} />
         )}
 
-        {block.source && block.source.url && block.source.url !== "" && (
-          <Source>
-            Source: {` `}
-            <a href={block.source.url}>
-              {block.source.title || block.source.url}
-            </a>
-          </Source>
+        {options.blockSource &&
+          block.source &&
+          block.source.url &&
+          block.source.url !== "" && (
+            <Source>
+              Source: {` `}
+              <a href={block.source.url}>
+                {block.source.title || block.source.url}
+              </a>
+            </Source>
+          )}
+
+        {options.blockAuthor && (
+          <SmallType>Added by {block.user.username}</SmallType>
         )}
-        <SmallType>Added by {block.user.username}</SmallType>
       </Description>
 
       <PageBreak />

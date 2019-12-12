@@ -1,8 +1,9 @@
 import React, { useState } from "react"
 import styled from "styled-components"
+import { useHistory } from "react-router-dom"
 import { stringify } from "qs"
 
-import { withRouter, RouterProps } from "react-router"
+import { URLOptions } from "types"
 
 const Container = styled.div`
   display: flex;
@@ -82,13 +83,8 @@ const Arrow = styled.button.attrs({ type: "submit" })`
   font-family: monospace;
 `
 
-interface URLOptions {
-  blockAuthor: boolean
-  blockSource: boolean
-  blockDescription: boolean
-}
-
-const Home: React.FC<RouterProps> = ({ history, ...props }) => {
+const Home: React.FC = ({ ...props }) => {
+  const history = useHistory()
   const [url, setUrl] = useState<string | null>("")
   const [options, setOptions] = useState<URLOptions>({
     blockAuthor: true,
@@ -191,4 +187,4 @@ const Home: React.FC<RouterProps> = ({ history, ...props }) => {
   )
 }
 
-export default withRouter(Home)
+export default Home
