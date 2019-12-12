@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import ReactMarkdown from "react-markdown"
 
 import { PageBreak } from "styles/index"
 
@@ -22,7 +23,9 @@ interface AboutPageProps {
 const AboutPage: React.FC<AboutPageProps> = ({ description }) => {
   return (
     <Container className="page about-page">
-      <About>{description}</About>
+      <About>
+        <ReactMarkdown source={description} />
+      </About>
       <PageBreak />
     </Container>
   )
