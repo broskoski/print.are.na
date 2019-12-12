@@ -1,5 +1,7 @@
 import React, { useState } from "react"
 import styled from "styled-components"
+import { stringify } from "qs"
+
 import { withRouter, RouterProps } from "react-router"
 
 const Container = styled.div`
@@ -12,6 +14,7 @@ const Container = styled.div`
   flex-direction: column;
   padding: 2em;
   justify-content: space-between;
+  background: #f4f4f4;
 `
 
 const Text = styled.div`
@@ -36,6 +39,21 @@ const Form = styled.form`
   line-height: 1.35;
 `
 
+const Options = styled.div`
+  padding: 1em 1em;
+`
+
+const Option = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const Checkbox = styled.input.attrs({ type: "checkbox" })`
+  margin-right: 1em;
+  height: 2em;
+  width: 2em;
+`
+
 const Input = styled.input`
   font-size: 18pt;
   width: 10em;
@@ -43,9 +61,16 @@ const Input = styled.input`
   border-bottom: 1px solid black;
   line-height: 1.25;
   height: 1em;
+  background: #f4f4f4;
 `
 
 const Top = styled.div``
+
+const Icon = styled.img.attrs({
+  src: "/icon.png",
+})`
+  margin-bottom: 1.25em;
+`
 
 const Bottom = styled(Text)`
   line-height: 1.35;
@@ -53,12 +78,33 @@ const Bottom = styled(Text)`
   max-width: 40em;
 `
 
-const Arrow = styled.span`
+const Arrow = styled.button.attrs({ type: "submit" })`
   font-family: monospace;
 `
 
-const URLForm: React.FC<RouterProps> = ({ history }) => {
+interface URLOptions {
+  blockAuthor: boolean
+  blockSource: boolean
+  blockDescription: boolean
+}
+
+const Home: React.FC<RouterProps> = ({ history, ...props }) => {
   const [url, setUrl] = useState<string | null>("")
+  const [options, setOptions] = useState<URLOptions>({
+    blockAuthor: true,
+    blockSource: true,
+    blockDescription: true,
+  })
+
+  const onOptionChange = (
+    key: "blockAuthor" | "blockSource" | "blockDescription",
+    value: boolean
+  ) => {
+    setOptions(prevOptions => ({
+      ...prevOptions,
+      [key]: value,
+    }))
+  }
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -66,39 +112,62 @@ const URLForm: React.FC<RouterProps> = ({ history }) => {
 
     if (!slug) return false
 
-    history.push(`/book/${slug}`)
+    history.push(`/book/${slug}?${stringify(options)}`)
   }
 
   return (
-    <Form onSubmit={onSubmit}>
-      <Input
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setUrl(e.target.value)
-        }
-        type="text"
-        name="url"
-        placeholder=""
-      />
-      <Arrow>→</Arrow>
-    </Form>
-  )
-}
-
-const Home: React.FC<RouterProps> = props => {
-  return (
     <Container>
       <Top>
+        <Icon />
         <Title>print.are.na</Title>
-
-        <Instructions>
-          <Text>
-            1. Enter the URL of a public Are.na channel: <URLForm {...props} />
-          </Text>
-          <Text>2. View PDF preview.</Text>
-          <Text>
-            3. (Optional) Save as PDF and upload to Lulu for booklet printing.
-          </Text>
-        </Instructions>
+        <Form onSubmit={onSubmit}>
+          <Instructions>
+            <Text>
+              Enter the URL of a public Are.na channel:{" "}
+              <Input
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setUrl(e.target.value)
+                }
+                type="text"
+                name="url"
+                placeholder=""
+              />
+              <Options>
+                <Option>
+                  <Checkbox
+                    checked={options.blockAuthor}
+                    onChange={e =>
+                      onOptionChange("blockAuthor", !options.blockAuthor)
+                    }
+                  />
+                  <label>Include block author</label>
+                </Option>
+                <Option>
+                  <Checkbox
+                    checked={options.blockSource}
+                    onChange={e =>
+                      onOptionChange("blockSource", !options.blockSource)
+                    }
+                  />
+                  <label>Include block source</label>
+                </Option>
+                <Option>
+                  <Checkbox
+                    checked={options.blockDescription}
+                    onChange={e =>
+                      onOptionChange(
+                        "blockDescription",
+                        !options.blockDescription
+                      )
+                    }
+                  />
+                  <label>Include block description</label>
+                </Option>
+              </Options>
+            </Text>
+          </Instructions>
+          <Arrow>→</Arrow>
+        </Form>
       </Top>
       <Bottom>
         print.are.na was initiated and supported in part by the{" "}
