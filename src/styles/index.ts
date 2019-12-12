@@ -29,8 +29,8 @@ const Style = createGlobalStyle`
   }
 
   .📖-running-header {
-    top: 0.35in;
-    min-height: 0.35in;
+    top: 0.3in;
+    min-height: 0.3in;
     pointer-events: none;
   }
 

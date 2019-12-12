@@ -18,7 +18,7 @@ const Container = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
-  height: 5.25in;
+  height: 6.275in;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

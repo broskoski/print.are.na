@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react"
 import styled from "styled-components"
+import { useLocation } from "react-router-dom"
 import { renderToString } from "react-dom/server"
 import { RouteComponentProps } from "react-router"
 import Bindery from "bindery"
 import { API } from "lib/api"
+import parseLocation from "lib/parseLocation"
 import { parseChannelContents } from "lib/parseChannelContents"
 import { Block } from "../../types"
 
@@ -15,6 +17,8 @@ import SectionPage from "components/SectionPage"
 import AboutPage from "components/AboutPage"
 import TableOfContents from "components/TableOfContents"
 import TitlePage from "components/TitlePage"
+
+import { URLOptions } from "types"
 
 const BookContainer = styled.div`
   opacity: 0;
@@ -37,6 +41,10 @@ interface BookProps {
 
 const Book: React.FC<BookProps> = ({ channel, contents }) => {
   const bookRef = useRef(null)
+  const location = useLocation()
+  const options: URLOptions = parseLocation(location.search.replace("?", ""))
+
+  console.log("options", options)
 
   useEffect(() => {
     if (bookRef.current) {
@@ -48,9 +56,18 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
 
       Bindery.makeBook({
         content: bookRef.current,
+        printSetup: {
+          layout: Bindery.Layout.PAGES,
+          paper: Bindery.Paper.AUTO_BLEED,
+          bleed: "0.25in",
+        },
         pageSetup: {
+          size: {
+            width: "4.25in",
+            height: "6.875in",
+          },
           margin: {
-            top: "0.35in",
+            top: "0.3in",
             inner: "0.65in",
             outer: "0.35in",
             bottom: "0.35in",
@@ -119,7 +136,7 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
       <div className="contents-start" />
 
       {contents.reverse().map(b => (
-        <Page block={b} key={b.id} />
+        <Page block={b} key={b.id} options={options} />
       ))}
     </BookContainer>
   )

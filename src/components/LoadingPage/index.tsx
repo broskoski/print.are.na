@@ -21,7 +21,7 @@ const Container = styled.div`
 `
 
 const Slug = styled.span`
-  color: rgb(66, 133, 60);
+  color: rgb(23, 172, 16);
 `
 
 interface LoadingPageProps {

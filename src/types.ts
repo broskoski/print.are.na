@@ -47,3 +47,9 @@ export interface Block {
     username: string
   }
 }
+
+export interface URLOptions {
+  blockAuthor: boolean
+  blockSource: boolean
+  blockDescription: boolean
+}
