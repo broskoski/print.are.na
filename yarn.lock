@@ -899,6 +899,13 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@broskoski/bindery@^2.2.9":
+  version "2.2.9"
+  resolved "https://registry.yarnpkg.com/@broskoski/bindery/-/bindery-2.2.9.tgz#f9852eee546888070878952f807bdaf9987d24c1"
+  integrity sha512-UMZXXbo9cumujCQpjIHjG81CfTBxfaz5JxT0TeTR1qAo5ECYDpbLNa2FPfrEHuhPF5u9DYisRyQv2TOJnYHT8g==
+  dependencies:
+    regionize "^0.1.3"
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.3.tgz#099139eaec7ebf07a27c1786a3ff64f39464d2ef"
@@ -2217,10 +2224,9 @@ bindery-controls@^1.1.2:
   resolved "https://registry.yarnpkg.com/bindery-controls/-/bindery-controls-1.1.2.tgz#ec0249a74d33ddc527dca2d52f7dcf5178a9edd0"
   integrity sha512-oNfqNdD6GeIUQlZltCQSl70gJbLA8Nhk3BcvPb8Vgrae8ot/vwlxa0hilYKWLZIGsjH9kZLhfmjYVL2LvjqOQA==
 
-bindery@2.2.9:
+"bindery@https://github.com/aredotna/bindery":
   version "2.2.9"
-  resolved "https://registry.yarnpkg.com/bindery/-/bindery-2.2.9.tgz#44f65038c26dd2f59e6637a3e7814b21b3232bfa"
-  integrity sha512-/weTdoJvDv2V7LoMMS+Fk3IkHJ5lJ8P89Cfa8zV9JnxD2IDt1pHodryzcD1Gd0dr7fN/FGkS5DVSu4+7PiDBWA==
+  resolved "https://github.com/aredotna/bindery#0b957f580eec09aa0a89348efe55e1bde5d4b511"
   dependencies:
     regionize "^0.1.3"
 
