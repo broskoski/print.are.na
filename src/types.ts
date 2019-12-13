@@ -49,7 +49,7 @@ export interface Block {
 }
 
 export interface URLOptions {
-  blockAuthor: boolean
-  blockSource: boolean
-  blockDescription: boolean
+  author: boolean
+  source: boolean
+  description: boolean
 }

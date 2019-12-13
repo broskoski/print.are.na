@@ -87,13 +87,13 @@ const Home: React.FC = ({ ...props }) => {
   const history = useHistory()
   const [url, setUrl] = useState<string | null>("")
   const [options, setOptions] = useState<URLOptions>({
-    blockAuthor: true,
-    blockSource: true,
-    blockDescription: true,
+    author: true,
+    source: true,
+    description: true,
   })
 
   const onOptionChange = (
-    key: "blockAuthor" | "blockSource" | "blockDescription",
+    key: "author" | "source" | "description",
     value: boolean
   ) => {
     setOptions(prevOptions => ({
@@ -128,41 +128,37 @@ const Home: React.FC = ({ ...props }) => {
                 name="url"
                 placeholder=""
               />
+              <br />
+              <br />
+              <Text>Choose your options:</Text>
               <Options>
                 <Option>
                   <Checkbox
-                    checked={options.blockAuthor}
-                    onChange={e =>
-                      onOptionChange("blockAuthor", !options.blockAuthor)
-                    }
+                    checked={options.author}
+                    onChange={e => onOptionChange("author", !options.author)}
                   />
                   <label>Include block author</label>
                 </Option>
                 <Option>
                   <Checkbox
-                    checked={options.blockSource}
-                    onChange={e =>
-                      onOptionChange("blockSource", !options.blockSource)
-                    }
+                    checked={options.source}
+                    onChange={e => onOptionChange("source", !options.source)}
                   />
                   <label>Include block source</label>
                 </Option>
                 <Option>
                   <Checkbox
-                    checked={options.blockDescription}
+                    checked={options.description}
                     onChange={e =>
-                      onOptionChange(
-                        "blockDescription",
-                        !options.blockDescription
-                      )
+                      onOptionChange("description", !options.description)
                     }
                   />
                   <label>Include block description</label>
                 </Option>
               </Options>
+              <Arrow>Go</Arrow>
             </Text>
           </Instructions>
-          <Arrow>→</Arrow>
         </Form>
       </Top>
       <Bottom>

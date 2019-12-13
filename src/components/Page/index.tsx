@@ -133,20 +133,20 @@ const Page: React.FC<PageProps> = ({ block, options }) => {
         <P dangerouslySetInnerHTML={{ __html: block.content_html }} />
       )}
 
-      {(longDescription || veryLongImage) && options.blockDescription && (
+      {(longDescription || veryLongImage) && options.description && (
         <PageBreak />
       )}
 
-      {veryLongDescription && options.blockDescription && (
+      {veryLongDescription && options.description && (
         <P dangerouslySetInnerHTML={{ __html: block.description_html }} />
       )}
 
       <Description>
-        {options.blockDescription && hasDescription && !veryLongDescription && (
+        {options.description && hasDescription && !veryLongDescription && (
           <div dangerouslySetInnerHTML={{ __html: block.description_html }} />
         )}
 
-        {options.blockSource &&
+        {options.source &&
           block.source &&
           block.source.url &&
           block.source.url !== "" && (
@@ -158,7 +158,7 @@ const Page: React.FC<PageProps> = ({ block, options }) => {
             </Source>
           )}
 
-        {options.blockAuthor && (
+        {options.author && (
           <SmallType>Added by {block.user.username}</SmallType>
         )}
       </Description>
