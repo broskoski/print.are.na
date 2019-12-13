@@ -42,9 +42,15 @@ interface BookProps {
 const Book: React.FC<BookProps> = ({ channel, contents }) => {
   const bookRef = useRef(null)
   const location = useLocation()
-  const options: URLOptions = parseLocation(location.search.replace("?", ""))
-
-  console.log("options", options)
+  const defaultOptions = {
+    author: true,
+    description: true,
+    source: true,
+  }
+  const options: URLOptions = {
+    ...defaultOptions,
+    ...parseLocation(location.search.replace("?", "")),
+  }
 
   useEffect(() => {
     if (bookRef.current) {
