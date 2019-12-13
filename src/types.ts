@@ -52,5 +52,4 @@ export interface URLOptions {
   author: boolean
   source: boolean
   description: boolean
-  view: boolean
 }

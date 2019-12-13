@@ -55,12 +55,6 @@ const Checkbox = styled.input.attrs({ type: "checkbox" })`
   width: 2em;
 `
 
-const Radio = styled.input.attrs({ type: "radio" })`
-  margin-right: 1em;
-  height: 2em;
-  width: 2em;
-`
-
 const Input = styled.input`
   font-size: 18pt;
   width: 10em;
@@ -96,11 +90,10 @@ const Home: React.FC = ({ ...props }) => {
     author: true,
     source: true,
     description: true,
-    view: true,
   })
 
   const onOptionChange = (
-    key: "author" | "source" | "description" | "view",
+    key: "author" | "source" | "description",
     value: boolean
   ) => {
     setOptions(prevOptions => ({
@@ -161,14 +154,6 @@ const Home: React.FC = ({ ...props }) => {
                     }
                   />
                   <label>Include block description</label>
-                </Option>
-                <Option>
-                  <Radio checked={options.view} name="view" value="true" />
-                  <label>Just viewing</label>
-                </Option>
-                <Option>
-                  <Radio checked={!options.view} name="view" value="false" />
-                  <label>Printing</label>
                 </Option>
               </Options>
               <Arrow>Go</Arrow>

@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { useLocation } from "react-router-dom"
 import { renderToString } from "react-dom/server"
 import { RouteComponentProps } from "react-router"
-import Bindery from "bindery"
+import Bindery from "@broskoski/bindery"
 import { API } from "lib/api"
 import parseLocation from "lib/parseLocation"
 import { parseChannelContents } from "lib/parseChannelContents"
@@ -62,6 +62,10 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
 
       Bindery.makeBook({
         content: bookRef.current,
+        controlOptions: {
+          hidePrint: true,
+          marks: [],
+        },
         printSetup: {
           layout: Bindery.Layout.PAGES,
           paper: Bindery.Paper.AUTO_BLEED,
