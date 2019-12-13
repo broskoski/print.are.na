@@ -162,15 +162,19 @@ const Home: React.FC = ({ ...props }) => {
         </Form>
       </Top>
       <Bottom>
-        print.are.na was initiated and supported in part by the{" "}
+        print.are.na was initiated and supported by the{" "}
         <a href="https://www.media.mit.edu/groups/poetic-justice/overview/">
           Poetic Justice group
         </a>{" "}
         founded by <a href="https://studioijeoma.com">Ekene Ijeoma</a> at MIT
-        Media Lab to support the activities of the Green Book Project course.{" "}
-        <a href="https://evanbrooks.info">Evan Brooks</a> created{" "}
-        <a href="http://bindery.js">bindery.js</a>, the open source library to
-        create printable books using HTML and CSS.{" "}
+        Media Lab to support the activities of the{" "}
+        <a href="https://www.media.mit.edu/courses/black-mobility-and-safety-in-the-us/">
+          Black Mobility and Safety in the US
+        </a>{" "}
+        course. <a href="https://evanbrooks.info">Evan Brooks</a> created{" "}
+        <a href="http://bindery.js">bindery.js</a>, the open source library
+        (which this version of print.are.na relies upon) to create printable
+        books using HTML and CSS.{" "}
         <a href="https://callil.com">Callil Capuozzo</a> made the original{" "}
         <a href="https://github.com/GeneralTrademark/print-arena">
           print.are.na
