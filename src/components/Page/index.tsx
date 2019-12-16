@@ -91,8 +91,8 @@ interface PageProps {
 }
 
 const TEXT_THRESHOLD = 70
-const DESCRIPTION_THRESHOLD = 320
-const LONG_IMAGE_DESCRIPTION_THRESHOLD = 130
+const DESCRIPTION_THRESHOLD = 390
+const LONG_IMAGE_DESCRIPTION_THRESHOLD = 365
 const VERY_LONG_DESCRIPTION_THRESHOLD = 820
 
 const Page: React.FC<PageProps> = ({ block, options }) => {
