@@ -41,7 +41,7 @@ const Form = styled.form`
 `
 
 const Options = styled.div`
-  padding: 1em 1em;
+  padding: 0.15em 1em 0.15em;
 `
 
 const Option = styled.div`
@@ -67,21 +67,30 @@ const Input = styled.input`
 
 const Top = styled.div``
 
-const Icon = styled.img.attrs({
-  src: "/icon.png",
-})`
-  margin-bottom: 1.25em;
-`
-
 const Bottom = styled(Text)`
   line-height: 1.35;
   font-size: 12pt;
   max-width: 40em;
 `
 
-const Arrow = styled.button.attrs({ type: "submit" })`
-  font-family: monospace;
+const Button = styled.button`
+  font-size: 1em;
 `
+
+// const Arrow = styled.button.attrs({ type: "submit" })`
+//   font-family: monospace;
+//   border: none;
+//   margin: 0;
+//   text-decoration: none;
+//   font-size: 2rem;
+//   background-color: transparent;
+//   cursor: pointer;
+//   text-align: center;
+//   -webkit-appearance: none;
+//   -moz-appearance: none;
+//   line-height: 0.5;
+//   padding: 0;
+// `
 
 const Home: React.FC = ({ ...props }) => {
   const history = useHistory()
@@ -114,12 +123,11 @@ const Home: React.FC = ({ ...props }) => {
   return (
     <Container>
       <Top>
-        <Icon />
         <Title>print.are.na</Title>
         <Form onSubmit={onSubmit}>
           <Instructions>
             <Text>
-              Enter the URL of a public Are.na channel:{" "}
+              1. Enter the URL of a public Are.na channel:{" "}
               <Input
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setUrl(e.target.value)
@@ -128,23 +136,21 @@ const Home: React.FC = ({ ...props }) => {
                 name="url"
                 placeholder=""
               />
-              <br />
-              <br />
-              <Text>Choose your options:</Text>
+              <Text>2. On each page, display:</Text>
               <Options>
                 <Option>
                   <Checkbox
                     checked={options.author}
                     onChange={e => onOptionChange("author", !options.author)}
                   />
-                  <label>Include block author</label>
+                  <label>author</label>
                 </Option>
                 <Option>
                   <Checkbox
                     checked={options.source}
                     onChange={e => onOptionChange("source", !options.source)}
                   />
-                  <label>Include block source</label>
+                  <label>source</label>
                 </Option>
                 <Option>
                   <Checkbox
@@ -153,10 +159,13 @@ const Home: React.FC = ({ ...props }) => {
                       onOptionChange("description", !options.description)
                     }
                   />
-                  <label>Include block description</label>
+                  <label>description</label>
                 </Option>
               </Options>
-              <Arrow>Go</Arrow>
+              <br />
+              <Text>
+                <Button>Make book</Button>
+              </Text>
             </Text>
           </Instructions>
         </Form>

@@ -53,3 +53,15 @@ export interface URLOptions {
   source: boolean
   description: boolean
 }
+
+export interface Channel {
+  title: string
+  metadata?: {
+    description: string
+  }
+  owner: {
+    class: "User" | "Group"
+    username?: string
+    name?: string
+  }
+}
