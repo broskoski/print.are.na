@@ -23,7 +23,12 @@ const Img = styled.img`
   max-width: 100%;
   max-height: calc(var(--bindery-page-height) - 1.5in);
   display: block;
-]`
+  flex: 1;
+  margin: 0 auto;
+  height: auto;
+  object-fit: contain;
+  object-position: top;
+`
 
 const P = styled.p`
   margin: 0;

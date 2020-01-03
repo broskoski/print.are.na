@@ -74,7 +74,7 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
         },
         printSetup: {
           layout: Bindery.Layout.PAGES,
-          paper: Bindery.Paper.AUTO_BLEED,
+          paper: Bindery.Paper.AUTO,
           bleed: "0.25in",
         },
         pageSetup: {
@@ -153,7 +153,7 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
           </>
         )}
 
-        {hasTOC && (
+        {hasTOC && options.toc && (
           <>
             <SectionPage title="Table of Contents" />
             <TableOfContents blocks={contents} />
@@ -179,12 +179,17 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
 }) => {
   const [channel, setChannel] = useState<any | null>(null)
   const [contents, setContents] = useState<null | Block[]>(null)
+  const [totalPages, setTotalPages] = useState<null | number>(null)
 
   const api = new API()
 
   useEffect(() => {
     if (!channel) {
-      api.getFullChannel(slug).then(channel => setChannel(channel))
+      api
+        .getFullChannel(slug, {
+          onGetTotal: setTotalPages,
+        })
+        .then(channel => setChannel(channel))
     }
   }, [channel, slug, api])
 
@@ -198,7 +203,9 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
 
   return (
     <>
-      {(!channel || !contents) && <LoadingPage slug={slug} />}
+      {(!channel || !contents) && (
+        <LoadingPage slug={slug} totalPages={totalPages} />
+      )}
       {channel && contents && <Book channel={channel} contents={contents} />}
     </>
   )

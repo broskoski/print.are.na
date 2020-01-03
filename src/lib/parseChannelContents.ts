@@ -45,7 +45,7 @@ const cleanBlockData = async (b: Block) => {
 }
 
 const parseChannelContents = async (contents: Block[]) => {
-  const filteredContents = contents.filter(b => b.class !== "Channel")
+  const filteredContents = contents.filter(b => b && b.class !== "Channel")
   const parsedContents = Promise.all(filteredContents.map(cleanBlockData))
 
   return parsedContents

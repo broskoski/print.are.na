@@ -52,6 +52,7 @@ export interface URLOptions {
   author: boolean
   source: boolean
   description: boolean
+  toc: boolean
 }
 
 export interface Channel {

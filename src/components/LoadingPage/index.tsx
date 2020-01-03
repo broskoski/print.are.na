@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 
 const Title = styled.h6`
@@ -26,14 +26,36 @@ const Slug = styled.span`
 
 interface LoadingPageProps {
   slug: string
+  totalPages: null | number
 }
 
-const LoadingPage: React.FC<LoadingPageProps> = ({ slug }) => {
+const LoadingPage: React.FC<LoadingPageProps> = ({ slug, totalPages }) => {
+  const [tick, setTick] = useState(0)
+
+  // useEffect(() => {
+  //   let interval: any
+
+  //   if (totalPages) {
+  //     interval = setInterval(() => {
+  //       setTick(tick + 1)
+  //     }, 1000)
+  //   }
+
+  //   return () => clearInterval(interval)
+  // }, [totalPages, tick])
+
   return (
     <Container className="page">
       <Title>
         Converting channel <Slug>{slug}</Slug> into a book...
       </Title>
+      {totalPages && (
+        <>
+          <Title>Creating {totalPages * 50} pages...</Title>
+          {tick > 2 && <Title>Downloading images...</Title>}
+          {tick > 8 && <Title>Sorry, this is taking a while...</Title>}
+        </>
+      )}
     </Container>
   )
 }

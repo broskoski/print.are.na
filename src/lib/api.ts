@@ -22,16 +22,28 @@ class API {
     return this.getFullChannel(slug)
   }
 
-  getFullChannel = (slug: string) => {
+  getFullChannel = (
+    slug: string,
+    options?: {
+      onEachPage?: (page: number) => void
+      onGetTotal?: (totalPages: number) => void
+    }
+  ) => {
     const PER = 50
     const mergedContents: any = []
-    const getChannelPage = (page: number) =>
-      this.get(`${BASE}/channels/${slug}?per=${PER}&page=${page}`)
+    const getChannelPage = (page: number) => {
+      options && options.onEachPage && options.onEachPage(page)
+      return this.get(`${BASE}/channels/${slug}?per=${PER}&page=${page}`)
+    }
 
     return getChannelPage(1).then(channel => {
       mergedContents.push(channel.contents)
 
       const totalPages = Math.ceil((channel.length - 1) / PER)
+
+      options && options.onGetTotal && options.onGetTotal(totalPages)
+      options && options.onEachPage && options.onEachPage(1)
+
       return Array(totalPages)
         .fill(undefined)
         .map((_, pageN) => pageN + 2)
@@ -39,7 +51,9 @@ class API {
           (promise, pageN) =>
             promise
               .then(() => getChannelPage(pageN))
-              .then(({ contents }) => mergedContents.push(contents)),
+              .then(({ contents }) => {
+                mergedContents.push(contents)
+              }),
           Promise.resolve()
         )
         .then(_ => {

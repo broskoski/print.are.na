@@ -99,10 +99,11 @@ const Home: React.FC = ({ ...props }) => {
     author: true,
     source: true,
     description: true,
+    toc: true,
   })
 
   const onOptionChange = (
-    key: "author" | "source" | "description",
+    key: "author" | "source" | "description" | "toc",
     value: boolean
   ) => {
     setOptions(prevOptions => ({
@@ -136,21 +137,28 @@ const Home: React.FC = ({ ...props }) => {
                 name="url"
                 placeholder=""
               />
-              <Text>2. On each page, display:</Text>
+              <Text>2. (Optional) Choose your settings:</Text>
               <Options>
+                <Option>
+                  <Checkbox
+                    checked={options.toc}
+                    onChange={e => onOptionChange("toc", !options.toc)}
+                  />
+                  <label>include table of contents</label>
+                </Option>
                 <Option>
                   <Checkbox
                     checked={options.author}
                     onChange={e => onOptionChange("author", !options.author)}
                   />
-                  <label>author</label>
+                  <label>display author</label>
                 </Option>
                 <Option>
                   <Checkbox
                     checked={options.source}
                     onChange={e => onOptionChange("source", !options.source)}
                   />
-                  <label>source</label>
+                  <label>display source</label>
                 </Option>
                 <Option>
                   <Checkbox
@@ -159,7 +167,7 @@ const Home: React.FC = ({ ...props }) => {
                       onOptionChange("description", !options.description)
                     }
                   />
-                  <label>description</label>
+                  <label>display description</label>
                 </Option>
               </Options>
               <br />

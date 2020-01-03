@@ -3,6 +3,10 @@ import styled from "styled-components"
 
 import { Channel } from "../../types"
 
+const PAGE_DEPTH = 0.001835
+const PAGE_WIDTH = 4.375
+const SPREAD_WIDTH = PAGE_WIDTH * 2
+
 const Container = styled.div`
   position: fixed;
   top: 0;
@@ -18,9 +22,7 @@ const Container = styled.div`
 
 const Interior = styled.div<{ pages: number }>`
   height: var(--bindery-page-height);
-  width: calc(
-    (var(--bindery-page-width) * 2) + ${props => props.pages * 0.002290909}
-  );
+  width: ${props => props.pages * PAGE_DEPTH + SPREAD_WIDTH}in;
   background: white;
   position: relative;
   display: flex;
@@ -32,39 +34,75 @@ const Interior = styled.div<{ pages: number }>`
 
 const Spine = styled.div<{ pages: number }>`
   height: 100%;
-  width: ${props => props.pages * 0.002290909}in;
-  // border-left: 1px solid gray;
-  // border-right: 1px solid gray;
+  width: ${props => props.pages * PAGE_DEPTH}in;
   padding-top: 0.2in;
 
   position: relative;
   box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+
+  // border-left: 1px solid gray;
+  // border-right: 1px solid gray;
 `
 
-const SpineTitle = styled.div<{ pages: number }>`
-  transform: rotate(90deg);
-  transform-origin: left;
+const SpineTitleHolder = styled.div<{ pages: number }>`
+  transform-origin: 0 0;
+  transform: rotate(90deg) translateY(-${props => props.pages * PAGE_DEPTH}in)
+    translateX(0.35in);
 
   width: var(--bindery-sheet-width);
-  height: ${props => props.pages * 0.002290909}in;
+  height: ${props => props.pages * PAGE_DEPTH}in;
   position: absolute;
-  left: 0;
+  left: -1px;
+  right: 0;
+  top: 0;
 
-  margin-left: ${props => (props.pages * 0.002290909) / 2}in;
-  line-height: ${props => props.pages * 0.002290909}in;
+  line-height: ${props => props.pages * PAGE_DEPTH}in;
+
+  display: flex;
+  align-items: center;
+
+  ${props =>
+    props.pages &&
+    props.pages < 70 &&
+    `
+    font-size: 10px;
+  `}
+
+  ${props =>
+    props.pages &&
+    props.pages < 30 &&
+    `
+    display: none;
+  `}
 `
 
-const LogoHolder = styled.div`
+const LogoHolder = styled.div<{ pages: number }>`
   position: absolute;
-  bottom: 1.5em;
+  bottom: 0.3in;
   display: flex;
   align-items: center;
   justify-content: center;
 `
 
-const Logo = styled.img.attrs({ src: "/logo.png" })`
-  width: 80%;
+const Logo = styled.img.attrs({ src: "/logo.png" })<{ pages: number }>`
+  width: 35px;
   height: auto;
+
+  ${props =>
+    props.pages &&
+    props.pages < 160 &&
+    `
+    width: 25px;
+  `}
+
+  ${props =>
+    props.pages &&
+    props.pages < 70 &&
+    `
+    display: none;
+  `}
 `
 
 const Title = styled.h6`
@@ -79,7 +117,7 @@ const Author = styled.div`
 `
 
 const Page = styled.div`
-  width: var(--bindery-page-width);
+  width: ${PAGE_WIDTH}in;
   height: 6.275in;
   display: flex;
   flex-direction: column;
@@ -133,7 +171,7 @@ const CoverSpread: React.FC<CoverSpreadProps> = ({ channel, onClose }) => {
     const head = document.head || document.getElementsByTagName("head")[0]
     const style = document.createElement("style")
     const css = `@page {
-      size: 8.876in 7.125in;
+      size: ${SPREAD_WIDTH + pageCount * PAGE_DEPTH}in 7.125in;
     }`
 
     style.id = "coverStyle"
@@ -160,9 +198,9 @@ const CoverSpread: React.FC<CoverSpreadProps> = ({ channel, onClose }) => {
       <Interior pages={pageCount}>
         <Page />
         <Spine pages={pageCount}>
-          <SpineTitle pages={pageCount}>{channel.title}</SpineTitle>
-          <LogoHolder>
-            <Logo />
+          <SpineTitleHolder pages={pageCount}>{channel.title}</SpineTitleHolder>
+          <LogoHolder pages={pageCount}>
+            <Logo pages={pageCount} />
           </LogoHolder>
         </Spine>
         <Page>
