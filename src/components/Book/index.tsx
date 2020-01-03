@@ -142,7 +142,7 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
         />
       )}
       <BookContainer className="book-container" ref={bookRef}>
-        <TitlePage title={channel.title} author={author} />
+        <TitlePage title={channel.title} author={author} channel={channel} />
 
         {hasAboutPage && (
           <>

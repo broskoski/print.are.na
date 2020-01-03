@@ -21,7 +21,7 @@ const ContainerWithMargin = styled(Container)``
 
 const Img = styled.img`
   max-width: 100%;
-  max-height: calc(var(--bindery-page-height) - 1.5in);
+  max-height: calc(var(--bindery-page-height) - 2in);
   display: block;
   flex: 1;
   margin: 0 auto;
@@ -164,7 +164,7 @@ const Page: React.FC<PageProps> = ({ block, options }) => {
           )}
 
         {options.author && (
-          <SmallType>Added by {block.user.username}</SmallType>
+          <SmallType>Added by {block.connected_by_username}</SmallType>
         )}
       </Description>
 

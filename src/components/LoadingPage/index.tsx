@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import styled from "styled-components"
 
 const Title = styled.h6`
@@ -30,20 +30,6 @@ interface LoadingPageProps {
 }
 
 const LoadingPage: React.FC<LoadingPageProps> = ({ slug, totalPages }) => {
-  const [tick, setTick] = useState(0)
-
-  // useEffect(() => {
-  //   let interval: any
-
-  //   if (totalPages) {
-  //     interval = setInterval(() => {
-  //       setTick(tick + 1)
-  //     }, 1000)
-  //   }
-
-  //   return () => clearInterval(interval)
-  // }, [totalPages, tick])
-
   return (
     <Container className="page">
       <Title>
@@ -52,8 +38,6 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ slug, totalPages }) => {
       {totalPages && (
         <>
           <Title>Creating {totalPages * 50} pages...</Title>
-          {tick > 2 && <Title>Downloading images...</Title>}
-          {tick > 8 && <Title>Sorry, this is taking a while...</Title>}
         </>
       )}
     </Container>

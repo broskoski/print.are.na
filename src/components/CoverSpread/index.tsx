@@ -65,7 +65,7 @@ const SpineTitleHolder = styled.div<{ pages: number }>`
 
   ${props =>
     props.pages &&
-    props.pages < 70 &&
+    props.pages < 90 &&
     `
     font-size: 10px;
   `}
@@ -80,26 +80,19 @@ const SpineTitleHolder = styled.div<{ pages: number }>`
 
 const LogoHolder = styled.div<{ pages: number }>`
   position: absolute;
-  bottom: 0.3in;
+  bottom: 0.325in;
   display: flex;
   align-items: center;
   justify-content: center;
 `
 
 const Logo = styled.img.attrs({ src: "/logo.png" })<{ pages: number }>`
-  width: 35px;
+  width: 25px;
   height: auto;
 
   ${props =>
     props.pages &&
-    props.pages < 160 &&
-    `
-    width: 25px;
-  `}
-
-  ${props =>
-    props.pages &&
-    props.pages < 70 &&
+    props.pages < 90 &&
     `
     display: none;
   `}
@@ -114,6 +107,12 @@ const Title = styled.h6`
 const Author = styled.div`
   margin: 0;
   font-size: 13pt;
+`
+
+const URL = styled.div`
+  margin: 0;
+  font-size: 8pt;
+  line-height: 13pt;
 `
 
 const Page = styled.div`
@@ -196,7 +195,10 @@ const CoverSpread: React.FC<CoverSpreadProps> = ({ channel, onClose }) => {
   return (
     <Container>
       <Interior pages={pageCount}>
-        <Page />
+        <Page>
+          <div>{` `}</div>
+          <URL>{`https://www.are.na/${channel.owner.slug}/${channel.slug}`}</URL>
+        </Page>
         <Spine pages={pageCount}>
           <SpineTitleHolder pages={pageCount}>{channel.title}</SpineTitleHolder>
           <LogoHolder pages={pageCount}>
@@ -205,7 +207,13 @@ const CoverSpread: React.FC<CoverSpreadProps> = ({ channel, onClose }) => {
         </Spine>
         <Page>
           <Title>{channel.title}</Title>
-          <Author>{author}</Author>
+          <div>
+            <Author>{author}</Author>
+            {channel.collaborators &&
+              channel.collaborators.map(c => {
+                return <Author>{c.username}</Author>
+              })}
+          </div>
         </Page>
       </Interior>
       <Buttons className="no-print">
