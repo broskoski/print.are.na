@@ -899,10 +899,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@broskoski/bindery@^2.2.9":
-  version "2.2.9"
-  resolved "https://registry.yarnpkg.com/@broskoski/bindery/-/bindery-2.2.9.tgz#f9852eee546888070878952f807bdaf9987d24c1"
-  integrity sha512-UMZXXbo9cumujCQpjIHjG81CfTBxfaz5JxT0TeTR1qAo5ECYDpbLNa2FPfrEHuhPF5u9DYisRyQv2TOJnYHT8g==
+"@broskoski/bindery@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@broskoski/bindery/-/bindery-2.3.0.tgz#a8988736e41560eed5990c6ad9915f9772513c4d"
+  integrity sha512-Q1UztWISIAsQYjiTiEC2ywiyoEfOvVKYxQyCZuTNMa/b6bpJ07H6YRceZuOhgs9ioHvvsvW2jU/7Slzi5V7IJQ==
   dependencies:
     regionize "^0.1.3"
 
