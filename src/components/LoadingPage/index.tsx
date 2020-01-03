@@ -26,14 +26,20 @@ const Slug = styled.span`
 
 interface LoadingPageProps {
   slug: string
+  totalPages: null | number
 }
 
-const LoadingPage: React.FC<LoadingPageProps> = ({ slug }) => {
+const LoadingPage: React.FC<LoadingPageProps> = ({ slug, totalPages }) => {
   return (
     <Container className="page">
       <Title>
         Converting channel <Slug>{slug}</Slug> into a book...
       </Title>
+      {totalPages && (
+        <>
+          <Title>Creating {totalPages * 50} pages...</Title>
+        </>
+      )}
     </Container>
   )
 }

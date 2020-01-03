@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
+import { Channel } from "types"
 import { PageBreak } from "styles/index"
 
 const Title = styled.h6`
@@ -28,13 +29,20 @@ const Container = styled.div`
 interface TitlePageProps {
   title: string
   author: string
+  channel: Channel
 }
 
-const TitlePage: React.FC<TitlePageProps> = ({ title, author }) => {
+const TitlePage: React.FC<TitlePageProps> = ({ title, author, channel }) => {
   return (
     <Container className="page">
       <Title>{title}</Title>
-      <Author>{author}</Author>
+      <div>
+        <Author>{author}</Author>
+        {channel.collaborators &&
+          channel.collaborators.map(c => {
+            return <Author>{c.username}</Author>
+          })}
+      </div>
       <PageBreak />
     </Container>
   )

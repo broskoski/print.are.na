@@ -43,6 +43,7 @@ export interface Block {
     url: string
     title: string
   }
+  connected_by_username?: string
   user: {
     username: string
   }
@@ -52,4 +53,25 @@ export interface URLOptions {
   author: boolean
   source: boolean
   description: boolean
+  toc: boolean
+}
+
+export interface Channel {
+  title: string
+  slug: string
+  metadata?: {
+    description: string
+  }
+  collaborators?: [
+    {
+      id?: number
+      username?: string
+    }
+  ]
+  owner: {
+    class: "User" | "Group"
+    username?: string
+    name?: string
+    slug?: string
+  }
 }

@@ -21,9 +21,14 @@ const ContainerWithMargin = styled(Container)``
 
 const Img = styled.img`
   max-width: 100%;
-  max-height: calc(var(--bindery-page-height) - 1.5in);
+  max-height: calc(var(--bindery-page-height) - 2in);
   display: block;
-]`
+  flex: 1;
+  margin: 0 auto;
+  height: auto;
+  object-fit: contain;
+  object-position: top;
+`
 
 const P = styled.p`
   margin: 0;
@@ -91,8 +96,8 @@ interface PageProps {
 }
 
 const TEXT_THRESHOLD = 70
-const DESCRIPTION_THRESHOLD = 320
-const LONG_IMAGE_DESCRIPTION_THRESHOLD = 130
+const DESCRIPTION_THRESHOLD = 390
+const LONG_IMAGE_DESCRIPTION_THRESHOLD = 365
 const VERY_LONG_DESCRIPTION_THRESHOLD = 820
 
 const Page: React.FC<PageProps> = ({ block, options }) => {
@@ -159,7 +164,7 @@ const Page: React.FC<PageProps> = ({ block, options }) => {
           )}
 
         {options.author && (
-          <SmallType>Added by {block.user.username}</SmallType>
+          <SmallType>Added by {block.connected_by_username}</SmallType>
         )}
       </Description>
 

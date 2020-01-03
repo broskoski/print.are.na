@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef, useCallback } from "react"
 import styled from "styled-components"
 import { useLocation } from "react-router-dom"
 import { renderToString } from "react-dom/server"
 import { RouteComponentProps } from "react-router"
-import Bindery from "@broskoski/bindery"
+import Bindery, { Controls } from "@broskoski/bindery"
 import { API } from "lib/api"
 import parseLocation from "lib/parseLocation"
 import { parseChannelContents } from "lib/parseChannelContents"
-import { Block } from "../../types"
+import { Block, Channel } from "../../types"
 
 import LoadingPage from "components/LoadingPage"
 
@@ -18,6 +18,8 @@ import AboutPage from "components/AboutPage"
 import TableOfContents from "components/TableOfContents"
 import TitlePage from "components/TitlePage"
 
+import CoverSpread from "components/CoverSpread"
+
 import { URLOptions } from "types"
 
 const BookContainer = styled.div`
@@ -25,22 +27,14 @@ const BookContainer = styled.div`
 `
 
 interface BookProps {
-  channel: {
-    title: string
-    metadata?: {
-      description: string
-    }
-    owner: {
-      class: "User" | "Group"
-      username?: string
-      name?: string
-    }
-  }
+  channel: Channel
   contents: Block[]
 }
 
 const Book: React.FC<BookProps> = ({ channel, contents }) => {
   const bookRef = useRef(null)
+  const [rendered, setRendered] = useState(false)
+  const [mode, setMode] = useState("interior")
   const location = useLocation()
   const defaultOptions = {
     author: true,
@@ -52,23 +46,35 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
     ...parseLocation(location.search.replace("?", "")),
   }
 
+  const handleClick = useCallback(() => {
+    setMode("cover")
+  }, [setMode])
+
   useEffect(() => {
-    if (bookRef.current) {
+    if (bookRef.current && !rendered) {
       const header = Bindery.RunningHeader({
         render: (page: any) => {
           return renderToString(<PageHeader page={page} />)
         },
       })
 
+      const coverButton = Controls.btnMain(
+        {
+          onclick: handleClick,
+        },
+        "Cover"
+      )
       Bindery.makeBook({
         content: bookRef.current,
         controlOptions: {
-          hidePrint: true,
-          marks: [],
+          layout: false,
+          views: true,
+          marks: false,
+          extraControls: coverButton,
         },
         printSetup: {
           layout: Bindery.Layout.PAGES,
-          paper: Bindery.Paper.AUTO_BLEED,
+          paper: Bindery.Paper.AUTO,
           bleed: "0.25in",
         },
         pageSetup: {
@@ -113,8 +119,9 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
           }),
         ],
       })
+      setRendered(true)
     }
-  }, [bookRef])
+  }, [bookRef, defaultOptions, handleClick, rendered])
 
   const hasTOC = contents.filter(b => !!b.title).length > 0
   const hasAboutPage = channel.metadata && channel.metadata.description !== ""
@@ -124,31 +131,42 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
       : channel.owner.name) || ""
 
   return (
-    <BookContainer className="book-container" ref={bookRef}>
-      <TitlePage title={channel.title} author={author} />
-
-      {hasAboutPage && (
-        <>
-          <SectionPage title="About" />
-          <AboutPage
-            description={channel.metadata && channel.metadata.description}
-          />
-        </>
+    <>
+      {mode === "cover" && (
+        <CoverSpread
+          bookRef={bookRef}
+          channel={channel}
+          onClose={() => {
+            setMode("book")
+          }}
+        />
       )}
+      <BookContainer className="book-container" ref={bookRef}>
+        <TitlePage title={channel.title} author={author} channel={channel} />
 
-      {hasTOC && (
-        <>
-          <SectionPage title="Table of Contents" />
-          <TableOfContents blocks={contents} />
-        </>
-      )}
+        {hasAboutPage && (
+          <>
+            <SectionPage title="About" />
+            <AboutPage
+              description={channel.metadata && channel.metadata.description}
+            />
+          </>
+        )}
 
-      <div className="contents-start" />
+        {hasTOC && options.toc && (
+          <>
+            <SectionPage title="Table of Contents" />
+            <TableOfContents blocks={contents} />
+          </>
+        )}
 
-      {contents.reverse().map(b => (
-        <Page block={b} key={b.id} options={options} />
-      ))}
-    </BookContainer>
+        <div className="contents-start" />
+
+        {contents.reverse().map(b => (
+          <Page block={b} key={b.id} options={options} />
+        ))}
+      </BookContainer>
+    </>
   )
 }
 
@@ -161,12 +179,17 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
 }) => {
   const [channel, setChannel] = useState<any | null>(null)
   const [contents, setContents] = useState<null | Block[]>(null)
+  const [totalPages, setTotalPages] = useState<null | number>(null)
 
   const api = new API()
 
   useEffect(() => {
     if (!channel) {
-      api.getFullChannel(slug).then(channel => setChannel(channel))
+      api
+        .getFullChannel(slug, {
+          onGetTotal: setTotalPages,
+        })
+        .then(channel => setChannel(channel))
     }
   }, [channel, slug, api])
 
@@ -180,7 +203,9 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
 
   return (
     <>
-      {(!channel || !contents) && <LoadingPage slug={slug} />}
+      {(!channel || !contents) && (
+        <LoadingPage slug={slug} totalPages={totalPages} />
+      )}
       {channel && contents && <Book channel={channel} contents={contents} />}
     </>
   )
