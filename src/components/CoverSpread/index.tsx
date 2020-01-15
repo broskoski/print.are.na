@@ -78,24 +78,13 @@ const SpineTitleHolder = styled.div<{ pages: number }>`
   `}
 `
 
-const LogoHolder = styled.div<{ pages: number }>`
-  position: absolute;
-  bottom: 0.325in;
+const LogoHolder = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
 `
 
-const Logo = styled.img.attrs({ src: "/logo.png" })<{ pages: number }>`
+const Logo = styled.img.attrs({ src: "/logo.png" })`
   width: 25px;
   height: auto;
-
-  ${props =>
-    props.pages &&
-    props.pages < 90 &&
-    `
-    display: none;
-  `}
 `
 
 const Title = styled.h6`
@@ -122,6 +111,15 @@ const Page = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: 0.25in;
+  position: relative;
+`
+
+const CoverInner = styled.div`
+  padding-left: calc(var(--bindery-margin-inner) - 0.25in);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 6.275in;
 `
 
 const Buttons = styled.div`
@@ -196,24 +194,27 @@ const CoverSpread: React.FC<CoverSpreadProps> = ({ channel, onClose }) => {
     <Container>
       <Interior pages={pageCount}>
         <Page>
-          <div>{` `}</div>
-          <URL>{`https://www.are.na/${channel.owner.slug}/${channel.slug}`}</URL>
+          <LogoHolder>
+            <Logo />
+          </LogoHolder>
+          <URL>
+            {`https://www.are.na/${channel.owner.slug}/${channel.slug}`}
+          </URL>
         </Page>
         <Spine pages={pageCount}>
           <SpineTitleHolder pages={pageCount}>{channel.title}</SpineTitleHolder>
-          <LogoHolder pages={pageCount}>
-            <Logo pages={pageCount} />
-          </LogoHolder>
         </Spine>
         <Page>
-          <Title>{channel.title}</Title>
-          <div>
-            <Author>{author}</Author>
-            {channel.collaborators &&
-              channel.collaborators.map(c => {
-                return <Author>{c.username}</Author>
-              })}
-          </div>
+          <CoverInner>
+            <Title>{channel.title}</Title>
+            <div>
+              <Author>{author}</Author>
+              {channel.collaborators &&
+                channel.collaborators.map(c => {
+                  return <Author>{c.username}</Author>
+                })}
+            </div>
+          </CoverInner>
         </Page>
       </Interior>
       <Buttons className="no-print">
