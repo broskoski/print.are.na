@@ -78,10 +78,6 @@ const SpineTitleHolder = styled.div<{ pages: number }>`
   `}
 `
 
-const LogoHolder = styled.div`
-  display: flex;
-`
-
 const Logo = styled.img.attrs({ src: "/logo.png" })`
   width: 25px;
   height: auto;
@@ -194,9 +190,7 @@ const CoverSpread: React.FC<CoverSpreadProps> = ({ channel, onClose }) => {
     <Container>
       <Interior pages={pageCount}>
         <Page>
-          <LogoHolder>
-            <Logo />
-          </LogoHolder>
+          <Logo />
           <URL>
             {`https://www.are.na/${channel.owner.slug}/${channel.slug}`}
           </URL>
