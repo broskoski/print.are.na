@@ -15,6 +15,10 @@ const Container = styled.div`
   display: flex;
   height: 100%;
   flex-direction: column;
+
+  > p:first-child {
+    margin: 0;
+  }
 `
 
 const ContainerWithMargin = styled(Container)``
@@ -41,6 +45,10 @@ const P = styled.p`
   -ms-word-break: break-all;
   word-break: break-all;
   word-break: break-word;
+
+  > p:first-child {
+    margin: 0;
+  }
 `
 
 const BigP = styled(P)`
@@ -98,7 +106,6 @@ interface PageProps {
 const TEXT_THRESHOLD = 70
 const DESCRIPTION_THRESHOLD = 390
 const LONG_IMAGE_DESCRIPTION_THRESHOLD = 365
-const VERY_LONG_DESCRIPTION_THRESHOLD = 820
 
 const Page: React.FC<PageProps> = ({ block, options }) => {
   const blockIsLargeType =
@@ -117,10 +124,6 @@ const Page: React.FC<PageProps> = ({ block, options }) => {
     hasDescription && longImage
       ? block.description_html.length > LONG_IMAGE_DESCRIPTION_THRESHOLD
       : block.description_html.length > DESCRIPTION_THRESHOLD
-
-  const veryLongDescription =
-    hasDescription &&
-    block.description_html.length > VERY_LONG_DESCRIPTION_THRESHOLD
 
   return (
     <ContainerWithMargin className="page">
@@ -142,12 +145,12 @@ const Page: React.FC<PageProps> = ({ block, options }) => {
         <PageBreak />
       )}
 
-      {veryLongDescription && options.description && (
+      {longDescription && options.description && (
         <P dangerouslySetInnerHTML={{ __html: block.description_html }} />
       )}
 
       <Description>
-        {options.description && hasDescription && !veryLongDescription && (
+        {options.description && hasDescription && !longDescription && (
           <div dangerouslySetInnerHTML={{ __html: block.description_html }} />
         )}
 

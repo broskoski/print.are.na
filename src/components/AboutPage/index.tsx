@@ -8,6 +8,10 @@ const About = styled.h6`
   font-weight: normal;
   margin: 0;
   font-size: 13pt;
+
+  > p:first-child {
+    margin: 0;
+  }
 `
 
 const Container = styled.div`
