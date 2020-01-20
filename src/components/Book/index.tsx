@@ -196,7 +196,7 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
   useEffect(() => {
     if (channel && channel.contents) {
       parseChannelContents(channel.contents).then(parsedContents =>
-        setContents(parsedContents)
+        setContents(parsedContents.reverse())
       )
     }
   }, [channel])
