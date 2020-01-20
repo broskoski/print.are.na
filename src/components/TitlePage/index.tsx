@@ -23,7 +23,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left: calc(var(--bindery-margin-inner) * -0.38);
 `
 
 interface TitlePageProps {
