@@ -4,6 +4,8 @@ import { useLocation } from "react-router-dom"
 import { renderToString } from "react-dom/server"
 import { RouteComponentProps } from "react-router"
 import Bindery, { Controls } from "@broskoski/bindery"
+import { isChrome } from "react-device-detect"
+
 import { API } from "lib/api"
 import parseLocation from "lib/parseLocation"
 import { parseChannelContents } from "lib/parseChannelContents"
@@ -17,6 +19,7 @@ import SectionPage from "components/SectionPage"
 import AboutPage from "components/AboutPage"
 import TableOfContents from "components/TableOfContents"
 import TitlePage from "components/TitlePage"
+import Notice from "components/Notice"
 
 import CoverSpread from "components/CoverSpread"
 
@@ -24,6 +27,15 @@ import { URLOptions } from "types"
 
 const BookContainer = styled.div`
   opacity: 0;
+`
+
+const NoticeContainer = styled.div`
+  position: fixed;
+  right: 1em;
+  bottom: 1em;
+  display: flex;
+  z-index: 100;
+  max-width: 20em;
 `
 
 interface BookProps {
@@ -207,6 +219,17 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
         <LoadingPage slug={slug} totalPages={totalPages} />
       )}
       {channel && contents && <Book channel={channel} contents={contents} />}
+
+      {channel && contents && (
+        <NoticeContainer>
+          {!isChrome && (
+            <Notice>
+              <strong>Note:</strong> if you are planning to print this book,
+              please use Chrome instead.
+            </Notice>
+          )}
+        </NoticeContainer>
+      )}
     </>
   )
 }
