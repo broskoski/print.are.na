@@ -37,6 +37,11 @@ class API {
     }
 
     return getChannelPage(1).then(channel => {
+      console.log("channel", channel)
+      if (channel.code) {
+        throw new Error(channel.message)
+      }
+
       mergedContents.push(channel.contents)
 
       const totalPages = Math.ceil((channel.length - 1) / PER)

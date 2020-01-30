@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react"
 import styled from "styled-components"
-import { useLocation } from "react-router-dom"
+import { useLocation, useHistory } from "react-router-dom"
 import { renderToString } from "react-dom/server"
 import { RouteComponentProps } from "react-router"
 import Bindery, { Controls } from "@broskoski/bindery"
@@ -201,6 +201,7 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
     params: { slug },
   },
 }) => {
+  const history = useHistory()
   const [channel, setChannel] = useState<any | null>(null)
   const [contents, setContents] = useState<null | Block[]>(null)
   const [totalPages, setTotalPages] = useState<null | number>(null)
@@ -214,8 +215,20 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
           onGetTotal: setTotalPages,
         })
         .then(channel => setChannel(channel))
+        .catch((error: Error) => {
+          console.log("handling error", error.message)
+
+          switch (error.message) {
+            case "Unauthorized":
+              return history.push(`/error/unauthorized`)
+            case "Not Found":
+              return history.push(`/error/not_found`)
+            default:
+              return history.push(`/error/unknown`)
+          }
+        })
     }
-  }, [channel, slug, api])
+  }, [channel, slug, api, history])
 
   useEffect(() => {
     if (channel && channel.contents) {

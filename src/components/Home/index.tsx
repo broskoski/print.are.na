@@ -114,7 +114,16 @@ const Home: React.FC = ({ ...props }) => {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const slug = url && url.split("/").pop()
+    const splitURL = url && url.split("/")
+
+    if (
+      (splitURL && splitURL.length !== 5) ||
+      (splitURL && splitURL[2] !== "are.na" && splitURL[2] !== "www.are.na")
+    ) {
+      return history.push(`/error/not_a_channel`)
+    }
+
+    const slug = splitURL && splitURL.pop()
 
     if (!slug) return false
 
