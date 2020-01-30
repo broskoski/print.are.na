@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react"
 import styled from "styled-components"
-import { useLocation } from "react-router-dom"
+import { useLocation, useHistory } from "react-router-dom"
 import { renderToString } from "react-dom/server"
 import { RouteComponentProps } from "react-router"
 import Bindery, { Controls } from "@broskoski/bindery"
@@ -53,6 +53,7 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
     description: true,
     source: true,
     defaultTo: "preview",
+    bleed: "0.25in",
   }
   const options: URLOptions = {
     ...defaultOptions,
@@ -92,7 +93,7 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
         },
         printSetup: {
           layout: Bindery.Layout.PAGES,
-          bleed: "0.25in",
+          bleed: "0in",
         },
         pageSetup: {
           size: {
@@ -200,6 +201,7 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
     params: { slug },
   },
 }) => {
+  const history = useHistory()
   const [channel, setChannel] = useState<any | null>(null)
   const [contents, setContents] = useState<null | Block[]>(null)
   const [totalPages, setTotalPages] = useState<null | number>(null)
@@ -213,8 +215,18 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
           onGetTotal: setTotalPages,
         })
         .then(channel => setChannel(channel))
+        .catch((error: Error) => {
+          switch (error.message) {
+            case "Unauthorized":
+              return history.push(`/error/unauthorized`)
+            case "Not Found":
+              return history.push(`/error/not_found`)
+            default:
+              return history.push(`/error/unknown`)
+          }
+        })
     }
-  }, [channel, slug, api])
+  }, [channel, slug, api, history])
 
   useEffect(() => {
     if (channel && channel.contents) {

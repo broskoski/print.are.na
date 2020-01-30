@@ -62,6 +62,13 @@ const Style = createGlobalStyle`
   .📖-footer p {
     margin-bottom: 8pt;
   }
+
+  @page {
+    size: var(--bindery-page-width) var(--bindery-page-height);
+    margin: 0 !important;
+    width: var(--bindery-page-width) !important;
+    height: var(--bindery-page-height) !important;
+  }
 `
 
 const PageBreak = styled.hr`

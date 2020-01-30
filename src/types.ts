@@ -55,6 +55,7 @@ export interface URLOptions {
   description: boolean
   toc: boolean
   defaultTo?: "print" | "preview"
+  bleed?: string
 }
 
 export interface Channel {
