@@ -152,7 +152,7 @@ const CoverSpread: React.FC<CoverSpreadProps> = ({ channel, onClose }) => {
 
   const spreadCount = Math.max(gridSpreadCount, flipBookSpreadCount)
 
-  const pageCount = spreadCount > 0 ? spreadCount * 2 : singlePageCount
+  const pageCount = singlePageCount > 0 ? singlePageCount : spreadCount * 2
 
   const author =
     (channel.owner.class === "User"

@@ -216,8 +216,6 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
         })
         .then(channel => setChannel(channel))
         .catch((error: Error) => {
-          console.log("handling error", error.message)
-
           switch (error.message) {
             case "Unauthorized":
               return history.push(`/error/unauthorized`)
