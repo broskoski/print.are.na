@@ -64,9 +64,9 @@ const Style = createGlobalStyle`
   }
 
   @page {
-    margin: 0;
-    width: var(--bindery-page-width);
-    height: var(--bindery-page-height);
+    margin: 0 !important;
+    width: var(--bindery-page-width) !important;
+    height: var(--bindery-page-height) !important;
   }
 `
 
