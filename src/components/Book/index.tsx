@@ -53,6 +53,7 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
     description: true,
     source: true,
     defaultTo: "preview",
+    bleed: "0.25in",
   }
   const options: URLOptions = {
     ...defaultOptions,
@@ -92,7 +93,7 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
         },
         printSetup: {
           layout: Bindery.Layout.PAGES,
-          bleed: "0.25in",
+          bleed: "0in",
         },
         pageSetup: {
           size: {
