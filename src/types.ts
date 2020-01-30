@@ -54,6 +54,7 @@ export interface URLOptions {
   source: boolean
   description: boolean
   toc: boolean
+  defaultTo?: "print" | "preview"
 }
 
 export interface Channel {

@@ -4,6 +4,8 @@ import { useLocation } from "react-router-dom"
 import { renderToString } from "react-dom/server"
 import { RouteComponentProps } from "react-router"
 import Bindery, { Controls } from "@broskoski/bindery"
+import { isChrome } from "react-device-detect"
+
 import { API } from "lib/api"
 import parseLocation from "lib/parseLocation"
 import { parseChannelContents } from "lib/parseChannelContents"
@@ -17,6 +19,7 @@ import SectionPage from "components/SectionPage"
 import AboutPage from "components/AboutPage"
 import TableOfContents from "components/TableOfContents"
 import TitlePage from "components/TitlePage"
+import Notice from "components/Notice"
 
 import CoverSpread from "components/CoverSpread"
 
@@ -24,6 +27,15 @@ import { URLOptions } from "types"
 
 const BookContainer = styled.div`
   opacity: 0;
+`
+
+const NoticeContainer = styled.div`
+  position: fixed;
+  right: 1em;
+  bottom: 1em;
+  display: flex;
+  z-index: 100;
+  max-width: 20em;
 `
 
 interface BookProps {
@@ -40,6 +52,7 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
     author: true,
     description: true,
     source: true,
+    defaultTo: "preview",
   }
   const options: URLOptions = {
     ...defaultOptions,
@@ -64,8 +77,13 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
         },
         "Cover"
       )
+
       Bindery.makeBook({
         content: bookRef.current,
+        view:
+          options.defaultTo === "print"
+            ? Bindery.View.PRINT
+            : Bindery.View.PREVIEW,
         controlOptions: {
           layout: false,
           views: true,
@@ -74,7 +92,6 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
         },
         printSetup: {
           layout: Bindery.Layout.PAGES,
-          paper: Bindery.Paper.AUTO,
           bleed: "0.25in",
         },
         pageSetup: {
@@ -121,7 +138,13 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
       })
       setRendered(true)
     }
-  }, [bookRef, defaultOptions, handleClick, rendered])
+  }, [bookRef, defaultOptions, handleClick, options.defaultTo, rendered])
+
+  useEffect(() => {
+    if (rendered) {
+      window.isReadyForPDF = true
+    }
+  }, [rendered])
 
   const hasTOC = contents.filter(b => !!b.title).length > 0
   const hasAboutPage = channel.metadata && channel.metadata.description !== ""
@@ -207,6 +230,17 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
         <LoadingPage slug={slug} totalPages={totalPages} />
       )}
       {channel && contents && <Book channel={channel} contents={contents} />}
+
+      {channel && contents && (
+        <NoticeContainer>
+          {!isChrome && (
+            <Notice>
+              <strong>Note:</strong> if you are planning to print this book with
+              Lulu, please use Chrome.
+            </Notice>
+          )}
+        </NoticeContainer>
+      )}
     </>
   )
 }
