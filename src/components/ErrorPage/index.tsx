@@ -44,7 +44,7 @@ const ERROR_MAP = {
   unauthorized: {
     title: "Unauthorized",
     message:
-      "Looks like this might be a private channel. You can generate a share link (under channel info) and use that URL instead.",
+      "Looks like this might be a private channel. Try again with a public channel",
   },
   not_a_channel: {
     title: "?",
