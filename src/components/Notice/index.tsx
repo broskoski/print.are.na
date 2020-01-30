@@ -6,6 +6,10 @@ const Container = styled.div`
   padding: 1em;
   color: red;
   padding-top: 1em;
+
+  @media print {
+    display: none;
+  }
 `
 
 const Notice: React.FC = ({ children }) => {

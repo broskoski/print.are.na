@@ -52,6 +52,7 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
     author: true,
     description: true,
     source: true,
+    defaultTo: "preview",
   }
   const options: URLOptions = {
     ...defaultOptions,
@@ -76,8 +77,13 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
         },
         "Cover"
       )
+
       Bindery.makeBook({
         content: bookRef.current,
+        view:
+          options.defaultTo === "print"
+            ? Bindery.View.PRINT
+            : Bindery.View.PREVIEW,
         controlOptions: {
           layout: false,
           views: true,
@@ -86,7 +92,6 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
         },
         printSetup: {
           layout: Bindery.Layout.PAGES,
-          paper: Bindery.Paper.AUTO,
           bleed: "0.25in",
         },
         pageSetup: {
@@ -133,7 +138,13 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
       })
       setRendered(true)
     }
-  }, [bookRef, defaultOptions, handleClick, rendered])
+  }, [bookRef, defaultOptions, handleClick, options.defaultTo, rendered])
+
+  useEffect(() => {
+    if (rendered) {
+      window.isReadyForPDF = true
+    }
+  }, [rendered])
 
   const hasTOC = contents.filter(b => !!b.title).length > 0
   const hasAboutPage = channel.metadata && channel.metadata.description !== ""
@@ -224,8 +235,8 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
         <NoticeContainer>
           {!isChrome && (
             <Notice>
-              <strong>Note:</strong> if you are planning to print this book,
-              please use Chrome instead.
+              <strong>Note:</strong> if you are planning to print this book with
+              Lulu, please use Chrome.
             </Notice>
           )}
         </NoticeContainer>

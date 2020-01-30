@@ -2,3 +2,7 @@
 
 declare module "@broskoski/bindery"
 declare module "@use-hooks/image-size"
+
+interface Window {
+  isReadyForPDF: boolean
+}
