@@ -64,6 +64,7 @@ const Style = createGlobalStyle`
   }
 
   @page {
+    size: var(--bindery-page-width) var(--bindery-page-height);
     margin: 0 !important;
     width: var(--bindery-page-width) !important;
     height: var(--bindery-page-height) !important;
