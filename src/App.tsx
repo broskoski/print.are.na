@@ -7,6 +7,7 @@ import { Style } from "styles/index"
 import Home from "components/Home"
 import Book from "components/Book"
 import Error from "components/ErrorPage"
+import Demo from "components/Demo"
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/book/:slug" component={Book} />
           <Route exact path="/error/:error" component={Error} />
+          <Route exact path="/demo" component={Demo} />
         </Switch>
       </Router>
     </>
