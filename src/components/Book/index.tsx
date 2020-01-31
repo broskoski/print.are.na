@@ -178,7 +178,7 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
 
         <div className="contents-start" />
 
-        {contents.reverse().map(b => (
+        {contents.map(b => (
           <Page block={b} key={b.id} options={options} />
         ))}
       </BookContainer>

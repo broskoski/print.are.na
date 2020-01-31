@@ -21,6 +21,7 @@ export interface Block {
   description_html: string
   hasImage?: boolean
   imageUrl?: string
+  position: number
   dimensions?: {
     width: number
     height: number

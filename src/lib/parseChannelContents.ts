@@ -47,8 +47,11 @@ const cleanBlockData = async (b: Block) => {
 const parseChannelContents = async (contents: Block[]) => {
   const filteredContents = contents.filter(b => b && b.class !== "Channel")
   const parsedContents = Promise.all(filteredContents.map(cleanBlockData))
+  const parsedAndSortedContents = (await parsedContents).sort(
+    block => block.position
+  )
 
-  return parsedContents
+  return parsedAndSortedContents
 }
 
 export { getImageDimensions, parseChannelContents }
