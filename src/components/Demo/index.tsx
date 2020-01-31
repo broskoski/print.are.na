@@ -51,6 +51,7 @@ const DemoPage: React.FC = () => {
           <IFrame
             src="https://www.loom.com/embed/e8925c58aeae4c69b0034a555f2a6648"
             frameBorder={0}
+            allowFullScreen
             title="Demo video"
           ></IFrame>
         </Video>

@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom"
 import { stringify } from "qs"
 
 import { URLOptions } from "types"
+import Notice from "components/Notice"
+import { NoticeContainer } from "components/NoticeContainer"
 
 const Container = styled.div`
   display: flex;
@@ -208,7 +210,17 @@ const Home: React.FC = ({ ...props }) => {
         for the 2017 Cybernetics Conference.{" "}
         <a href="http://mindyseu.com">Mindy Seu</a> designed and facilitated the
         current version.
+        <p>
+          First time using print.are.na? Watch this{" "}
+          <a href="/demo">short instructional video</a>.
+        </p>
       </Bottom>
+      <NoticeContainer>
+        <Notice id="demo">
+          <strong>Note:</strong> First time using print.are.na? Watch this{" "}
+          <a href="/demo">short instructional video</a>.
+        </Notice>
+      </NoticeContainer>
     </Container>
   )
 }

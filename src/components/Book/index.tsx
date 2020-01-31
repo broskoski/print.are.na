@@ -20,6 +20,7 @@ import AboutPage from "components/AboutPage"
 import TableOfContents from "components/TableOfContents"
 import TitlePage from "components/TitlePage"
 import Notice from "components/Notice"
+import { NoticeContainer } from "components/NoticeContainer"
 
 import CoverSpread from "components/CoverSpread"
 
@@ -27,15 +28,6 @@ import { URLOptions } from "types"
 
 const BookContainer = styled.div`
   opacity: 0;
-`
-
-const NoticeContainer = styled.div`
-  position: fixed;
-  right: 1em;
-  bottom: 1em;
-  display: flex;
-  z-index: 100;
-  max-width: 20em;
 `
 
 interface BookProps {
@@ -247,7 +239,7 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
       {channel && contents && (
         <NoticeContainer>
           {!isChrome && (
-            <Notice>
+            <Notice id="non-chrome">
               <strong>Note:</strong> if you are planning to print this book with
               Lulu, please use Chrome.
             </Notice>
