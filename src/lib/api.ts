@@ -34,7 +34,7 @@ class API {
     const getChannelPage = (page: number) => {
       options && options.onEachPage && options.onEachPage(page)
       return this.get(
-        `${BASE}/channels/${slug}?per=${PER}&page=${page}&sort=position&direction=desc`
+        `${BASE}/channels/${slug}?per=${PER}&page=${page}&sort=position&direction=desc&t=${Date.now()}`
       )
     }
 
