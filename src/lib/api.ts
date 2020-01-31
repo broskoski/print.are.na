@@ -33,7 +33,9 @@ class API {
     const mergedContents: any = []
     const getChannelPage = (page: number) => {
       options && options.onEachPage && options.onEachPage(page)
-      return this.get(`${BASE}/channels/${slug}?per=${PER}&page=${page}`)
+      return this.get(
+        `${BASE}/channels/${slug}?per=${PER}&page=${page}&sort=position&direction=desc`
+      )
     }
 
     return getChannelPage(1).then(channel => {
