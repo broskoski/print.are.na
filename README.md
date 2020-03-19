@@ -1,5 +1,5 @@
 ### print.are.na
 
-print.are.na was created by Mindy Seu, the Poetic Justice Group and Are.na to create small publications for Ekene Ijeoma’s Black Mobility and Safety in the US course.
+print.are.na was created by Mindy Seu, Charles Broskoski and Ekene Ijeoma.
 
-Evan Brooks created bindery.js, the open source library (which this version of print.are.na relies upon) to create printable books using HTML and CSS. Callil Capuozzo made the original print.are.na for the 2017 Cybernetics Conference.
+print.are.na uses bindery.js, an open-source library for creating books using HTML and CSS, created by Evan Brooks. The first version print.are.na was created by Callil Capuozzo for the 2017 Cybernetics Conference.
