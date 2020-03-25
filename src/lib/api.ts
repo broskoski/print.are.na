@@ -28,6 +28,7 @@ class API {
       onEachPage?: (page: number) => void
       onGetTotal?: (totalPages: number) => void
       isShare?: boolean
+      reverse?: boolean
     }
   ) => {
     const PER = 50
@@ -35,6 +36,7 @@ class API {
     const isShare = options && options.isShare
 
     const fetchOptions = isShare ? { headers: { "X-SHARE-TOKEN": slug } } : {}
+    const order = options && options.reverse ? "desc" : "asc"
 
     const getChannelPage = (slug: string, page: number) => {
       options && options.onEachPage && options.onEachPage(page)
@@ -44,7 +46,7 @@ class API {
           : `${BASE}/channels/${slug}`
 
       return this.get(
-        `${baseUrl}?per=${PER}&page=${page}&sort=position&direction=desc&t=${Date.now()}`,
+        `${baseUrl}?per=${PER}&page=${page}&sort=position&direction=${order}&t=${Date.now()}`,
         fetchOptions
       )
     }

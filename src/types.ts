@@ -58,6 +58,7 @@ export interface URLOptions {
   defaultTo?: "print" | "preview"
   bleed?: string
   isShare?: boolean
+  reverse?: boolean
 }
 
 export interface Channel {

@@ -88,10 +88,11 @@ const Home: React.FC = ({ ...props }) => {
     description: true,
     toc: true,
     isShare: false,
+    reverse: true,
   })
 
   const onOptionChange = (
-    key: "author" | "source" | "description" | "toc",
+    key: "author" | "source" | "description" | "toc" | "reverse",
     value: boolean
   ) => {
     setOptions(prevOptions => ({
@@ -169,6 +170,13 @@ const Home: React.FC = ({ ...props }) => {
                     }
                   />
                   <label>display description</label>
+                </Option>
+                <Option>
+                  <Checkbox
+                    checked={options.reverse}
+                    onChange={e => onOptionChange("reverse", !options.reverse)}
+                  />
+                  <label>reverse chronological order (newest first)</label>
                 </Option>
               </Options>
               <br />

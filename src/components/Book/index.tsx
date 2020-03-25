@@ -214,6 +214,7 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
         .getFullChannel(slug, {
           onGetTotal: setTotalPages,
           isShare: options.isShare,
+          reverse: options.reverse,
         })
         .then(channel => setChannel(channel))
         .catch((error: Error) => {
@@ -227,15 +228,17 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
           }
         })
     }
-  }, [channel, slug, api, history, options.isShare])
+  }, [channel, slug, api, history, options.isShare, options.reverse])
 
   useEffect(() => {
     if (channel && channel.contents) {
-      parseChannelContents(channel.contents).then(parsedContents => {
-        setContents(parsedContents)
-      })
+      parseChannelContents(channel.contents, options.reverse).then(
+        parsedContents => {
+          setContents(parsedContents)
+        }
+      )
     }
-  }, [channel])
+  }, [channel, options.reverse])
 
   return (
     <>
