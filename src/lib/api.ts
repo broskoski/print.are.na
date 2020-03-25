@@ -4,8 +4,8 @@ import flattenDeep from "lodash/flattenDeep"
 const BASE = apiBase[process.env.NODE_ENV]
 
 class API {
-  get = (endpoint: string) => {
-    return fetch(endpoint)
+  get = (endpoint: string, options = {}) => {
+    return fetch(endpoint, options)
       .then(response => response.json())
       .catch(err => false)
   }
@@ -27,19 +27,29 @@ class API {
     options?: {
       onEachPage?: (page: number) => void
       onGetTotal?: (totalPages: number) => void
+      isShare?: boolean
     }
   ) => {
     const PER = 50
     const mergedContents: any = []
-    const getChannelPage = (page: number) => {
+    const isShare = options && options.isShare
+
+    const fetchOptions = isShare ? { headers: { "X-SHARE-TOKEN": slug } } : {}
+
+    const getChannelPage = (slug: string, page: number) => {
       options && options.onEachPage && options.onEachPage(page)
+      const baseUrl =
+        isShare && page === 1
+          ? `${BASE}/channels/by_share_link/${slug}`
+          : `${BASE}/channels/${slug}`
+
       return this.get(
-        `${BASE}/channels/${slug}?per=${PER}&page=${page}&sort=position&direction=desc&t=${Date.now()}`
+        `${baseUrl}?per=${PER}&page=${page}&sort=position&direction=desc&t=${Date.now()}`,
+        fetchOptions
       )
     }
 
-    return getChannelPage(1).then(channel => {
-      console.log("channel", channel)
+    return getChannelPage(slug, 1).then(channel => {
       if (channel.code) {
         throw new Error(channel.message)
       }
@@ -57,7 +67,7 @@ class API {
         .reduce(
           (promise, pageN) =>
             promise
-              .then(() => getChannelPage(pageN))
+              .then(() => getChannelPage(channel.slug, pageN))
               .then(({ contents }) => {
                 mergedContents.push(contents)
               }),

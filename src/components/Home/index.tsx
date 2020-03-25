@@ -79,21 +79,6 @@ const Button = styled.button`
   font-size: 1em;
 `
 
-// const Arrow = styled.button.attrs({ type: "submit" })`
-//   font-family: monospace;
-//   border: none;
-//   margin: 0;
-//   text-decoration: none;
-//   font-size: 2rem;
-//   background-color: transparent;
-//   cursor: pointer;
-//   text-align: center;
-//   -webkit-appearance: none;
-//   -moz-appearance: none;
-//   line-height: 0.5;
-//   padding: 0;
-// `
-
 const Home: React.FC = ({ ...props }) => {
   const history = useHistory()
   const [url, setUrl] = useState<string | null>("")
@@ -102,6 +87,7 @@ const Home: React.FC = ({ ...props }) => {
     source: true,
     description: true,
     toc: true,
+    isShare: false,
   })
 
   const onOptionChange = (
@@ -123,6 +109,10 @@ const Home: React.FC = ({ ...props }) => {
       (splitURL && splitURL[2] !== "are.na" && splitURL[2] !== "www.are.na")
     ) {
       return history.push(`/error/not_a_channel`)
+    }
+
+    if (splitURL && splitURL[3] === "share") {
+      options["isShare"] = true
     }
 
     const slug = splitURL && splitURL.pop()
