@@ -44,11 +44,11 @@ const cleanBlockData = async (b: Block) => {
   } as Block
 }
 
-const parseChannelContents = async (contents: Block[]) => {
+const parseChannelContents = async (contents: Block[], reverse?: boolean) => {
   const filteredContents = contents.filter(b => b && b.class !== "Channel")
   const parsedContents = Promise.all(filteredContents.map(cleanBlockData))
-  const parsedAndSortedContents = (await parsedContents).sort(
-    block => block.position
+  const parsedAndSortedContents = (await parsedContents).sort(block =>
+    reverse ? block.position : -block.position
   )
 
   return parsedAndSortedContents

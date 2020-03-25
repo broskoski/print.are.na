@@ -79,21 +79,6 @@ const Button = styled.button`
   font-size: 1em;
 `
 
-// const Arrow = styled.button.attrs({ type: "submit" })`
-//   font-family: monospace;
-//   border: none;
-//   margin: 0;
-//   text-decoration: none;
-//   font-size: 2rem;
-//   background-color: transparent;
-//   cursor: pointer;
-//   text-align: center;
-//   -webkit-appearance: none;
-//   -moz-appearance: none;
-//   line-height: 0.5;
-//   padding: 0;
-// `
-
 const Home: React.FC = ({ ...props }) => {
   const history = useHistory()
   const [url, setUrl] = useState<string | null>("")
@@ -102,10 +87,12 @@ const Home: React.FC = ({ ...props }) => {
     source: true,
     description: true,
     toc: true,
+    isShare: false,
+    reverse: true,
   })
 
   const onOptionChange = (
-    key: "author" | "source" | "description" | "toc",
+    key: "author" | "source" | "description" | "toc" | "reverse",
     value: boolean
   ) => {
     setOptions(prevOptions => ({
@@ -123,6 +110,10 @@ const Home: React.FC = ({ ...props }) => {
       (splitURL && splitURL[2] !== "are.na" && splitURL[2] !== "www.are.na")
     ) {
       return history.push(`/error/not_a_channel`)
+    }
+
+    if (splitURL && splitURL[3] === "share") {
+      options["isShare"] = true
     }
 
     const slug = splitURL && splitURL.pop()
@@ -179,6 +170,13 @@ const Home: React.FC = ({ ...props }) => {
                     }
                   />
                   <label>display description</label>
+                </Option>
+                <Option>
+                  <Checkbox
+                    checked={options.reverse}
+                    onChange={e => onOptionChange("reverse", !options.reverse)}
+                  />
+                  <label>reverse chronological order (newest first)</label>
                 </Option>
               </Options>
               <br />

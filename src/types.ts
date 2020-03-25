@@ -57,6 +57,8 @@ export interface URLOptions {
   toc: boolean
   defaultTo?: "print" | "preview"
   bleed?: string
+  isShare?: boolean
+  reverse?: boolean
 }
 
 export interface Channel {
@@ -76,5 +78,8 @@ export interface Channel {
     username?: string
     name?: string
     slug?: string
+  }
+  user: {
+    username?: string
   }
 }

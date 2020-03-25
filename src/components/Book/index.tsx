@@ -141,10 +141,14 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
 
   const hasTOC = contents.filter(b => !!b.title).length > 0
   const hasAboutPage = channel.metadata && channel.metadata.description !== ""
+
   const author =
-    (channel.owner.class === "User"
-      ? channel.owner.username
-      : channel.owner.name) || ""
+    (channel.owner &&
+      (channel.owner.class === "User"
+        ? channel.owner.username
+        : channel.owner.name)) ||
+    channel.user.username ||
+    ""
 
   return (
     <>
@@ -194,6 +198,10 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
   },
 }) => {
   const history = useHistory()
+  const location = useLocation()
+  const options: URLOptions = {
+    ...parseLocation(location.search.replace("?", "")),
+  }
   const [channel, setChannel] = useState<any | null>(null)
   const [contents, setContents] = useState<null | Block[]>(null)
   const [totalPages, setTotalPages] = useState<null | number>(null)
@@ -205,6 +213,8 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
       api
         .getFullChannel(slug, {
           onGetTotal: setTotalPages,
+          isShare: options.isShare,
+          reverse: options.reverse,
         })
         .then(channel => setChannel(channel))
         .catch((error: Error) => {
@@ -218,15 +228,17 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
           }
         })
     }
-  }, [channel, slug, api, history])
+  }, [channel, slug, api, history, options.isShare, options.reverse])
 
   useEffect(() => {
     if (channel && channel.contents) {
-      parseChannelContents(channel.contents).then(parsedContents => {
-        setContents(parsedContents)
-      })
+      parseChannelContents(channel.contents, options.reverse).then(
+        parsedContents => {
+          setContents(parsedContents)
+        }
+      )
     }
-  }, [channel])
+  }, [channel, options.reverse])
 
   return (
     <>
