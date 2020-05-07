@@ -110,8 +110,9 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
               return element
             },
           }),
+          // Start of book contents
           Bindery.PageBreak({
-            selector: ".toc-page hr",
+            selector: ".toc-start",
             position: "before",
             continue: "left",
           }),
@@ -175,6 +176,7 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
 
         {hasTOC && options.toc && (
           <>
+            <div className="toc-start" />
             <SectionPage title="Table of Contents" />
             <TableOfContents blocks={contents} />
           </>

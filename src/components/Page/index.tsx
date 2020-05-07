@@ -141,11 +141,11 @@ const Page: React.FC<PageProps> = ({ block, options }) => {
         <P dangerouslySetInnerHTML={{ __html: block.content_html }} />
       )}
 
-      {(longDescription || veryLongImage) && options.description && (
-        <PageBreak />
-      )}
+      {(longDescription || veryLongImage) &&
+        options.description &&
+        block.description_html && <PageBreak />}
 
-      {longDescription && options.description && (
+      {longDescription && block.description_html && options.description && (
         <P dangerouslySetInnerHTML={{ __html: block.description_html }} />
       )}
 
