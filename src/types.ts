@@ -55,7 +55,7 @@ export interface URLOptions {
   source: boolean
   description: boolean
   toc: boolean
-  defaultTo?: "print" | "preview"
+  defaultTo?: "print" | "preview" | "flipbook"
   bleed?: string
   isShare?: boolean
   reverse?: boolean

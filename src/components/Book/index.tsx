@@ -71,12 +71,18 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
         "Cover"
       )
 
+      const view = options.defaultTo
+        ? {
+            print: Bindery.View.PRINT,
+            preview: Bindery.View.PREVIEW,
+            flipbook: Bindery.View.FLIPBOOK,
+            undefined: "",
+          }[options.defaultTo]
+        : Bindery.View.PREVIEW
+
       Bindery.makeBook({
         content: bookRef.current,
-        view:
-          options.defaultTo === "print"
-            ? Bindery.View.PRINT
-            : Bindery.View.PREVIEW,
+        view,
         controlOptions: {
           layout: false,
           views: true,

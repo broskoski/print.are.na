@@ -25,7 +25,7 @@ const ContainerWithMargin = styled(Container)``
 
 const Img = styled.img`
   max-width: 100%;
-  max-height: calc(var(--bindery-page-height) - 2in);
+  max-height: calc(var(--bindery-page-height) - 2.25in);
   display: block;
   flex: 1;
   margin: 0 auto;
@@ -34,7 +34,7 @@ const Img = styled.img`
   object-position: top;
 `
 
-const P = styled.p`
+const P = styled.p<{ hasAuthor?: boolean }>`
   margin: 0;
   font-size: 13pt;
   line-height: 1.25;
@@ -49,6 +49,14 @@ const P = styled.p`
   > p:first-child {
     margin: 0;
   }
+
+  ${props =>
+    props.hasAuthor &&
+    `
+    > p:last-child {
+      margin-bottom: 0.45in;
+    }
+  `}
 `
 
 const BigP = styled(P)`
@@ -138,7 +146,10 @@ const Page: React.FC<PageProps> = ({ block, options }) => {
       )}
 
       {!blockIsLargeType && !block.hasImage && (
-        <P dangerouslySetInnerHTML={{ __html: block.content_html }} />
+        <P
+          dangerouslySetInnerHTML={{ __html: block.content_html }}
+          hasAuthor={options.author}
+        />
       )}
 
       {(longDescription || veryLongImage) &&
