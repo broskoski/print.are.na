@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 import { Channel } from "../../types"
 
-const PAGE_DEPTH = 0.001835
+const PAGE_DEPTH = 0.003345
 const PAGE_WIDTH = 4.375
 const SPREAD_WIDTH = PAGE_WIDTH * 2
 
@@ -111,7 +111,6 @@ const Page = styled.div`
 `
 
 const CoverInner = styled.div`
-  padding-left: calc(var(--bindery-margin-inner) - 0.25in);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
