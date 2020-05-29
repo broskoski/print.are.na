@@ -111,6 +111,7 @@ const Page = styled.div`
 `
 
 const CoverInner = styled.div`
+  padding-left: 0.35in;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
