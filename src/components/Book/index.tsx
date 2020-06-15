@@ -44,6 +44,7 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
     author: true,
     description: true,
     source: true,
+    toc: true,
     defaultTo: "preview",
     bleed: "0.25in",
   }
