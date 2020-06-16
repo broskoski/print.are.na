@@ -28,7 +28,7 @@ const Text = styled.div`
   box-sizing: border-box;
 `
 
-const Title = styled(Text)`
+const Title = styled(Text as any)`
   padding-top: 0;
   line-height: 1;
 `
@@ -69,7 +69,7 @@ const Input = styled.input`
 
 const Top = styled.div``
 
-const Bottom = styled(Text)`
+const Bottom = styled(Text as any)`
   line-height: 1.35;
   font-size: 12pt;
   max-width: 40em;
@@ -105,6 +105,8 @@ const Home: React.FC = ({ ...props }) => {
     e.preventDefault()
     const splitURL = url && url.split("/")
 
+    console.log("splitURL", splitURL)
+
     if (
       (splitURL && splitURL.length !== 5) ||
       (splitURL && splitURL[2] !== "are.na" && splitURL[2] !== "www.are.na")
@@ -113,12 +115,15 @@ const Home: React.FC = ({ ...props }) => {
     }
 
     if (splitURL && splitURL[3] === "share") {
+      console.log("is_share")
       options["isShare"] = true
     }
 
     const slug = splitURL && splitURL.pop()
 
     if (!slug) return false
+
+    console.log({ slug, options })
 
     history.push(`/book/${slug}?${stringify(options)}`)
   }

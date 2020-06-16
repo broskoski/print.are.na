@@ -5,9 +5,9 @@ import { renderToString } from "react-dom/server"
 import { RouteComponentProps } from "react-router"
 import Bindery, { Controls } from "@broskoski/bindery"
 import { isChrome } from "react-device-detect"
+import * as QueryString from "query-string"
 
 import { API } from "lib/api"
-import parseLocation from "lib/parseLocation"
 import { parseChannelContents } from "lib/parseChannelContents"
 import { Block, Channel } from "../../types"
 
@@ -35,22 +35,23 @@ interface BookProps {
   contents: Block[]
 }
 
+const defaultOptions: URLOptions = {
+  author: true,
+  description: true,
+  source: true,
+  toc: true,
+  defaultTo: "preview",
+  bleed: "0.25in",
+}
+
 const Book: React.FC<BookProps> = ({ channel, contents }) => {
   const bookRef = useRef(null)
   const [rendered, setRendered] = useState(false)
   const [mode, setMode] = useState("interior")
   const location = useLocation()
-  const defaultOptions: URLOptions = {
-    author: true,
-    description: true,
-    source: true,
-    toc: true,
-    defaultTo: "preview",
-    bleed: "0.25in",
-  }
   const options: URLOptions = {
     ...defaultOptions,
-    ...parseLocation(location.search.replace("?", "")),
+    ...QueryString.parse(location.search, { parseBooleans: true }),
   }
 
   const handleClick = useCallback(() => {
@@ -139,7 +140,7 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
       })
       setRendered(true)
     }
-  }, [bookRef, defaultOptions, handleClick, options.defaultTo, rendered])
+  }, [bookRef, handleClick, options.defaultTo, rendered])
 
   useEffect(() => {
     if (rendered) {
@@ -205,12 +206,15 @@ const BookWrapper: React.FC<BookWrapperProps> = ({
   match: {
     params: { slug },
   },
+  location: { search },
 }) => {
   const history = useHistory()
   const location = useLocation()
   const options: URLOptions = {
-    ...parseLocation(location.search.replace("?", "")),
+    ...defaultOptions,
+    ...QueryString.parse(location.search, { parseBooleans: true }),
   }
+
   const [channel, setChannel] = useState<any | null>(null)
   const [contents, setContents] = useState<null | Block[]>(null)
   const [totalPages, setTotalPages] = useState<null | number>(null)
