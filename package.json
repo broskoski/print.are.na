@@ -27,6 +27,10 @@
     "styled-components": "^5.0.0-beta.8",
     "typescript": "^3.6.3"
   },
+  "engines": {
+    "node": "12.x.x",
+    "yarn": "1.x.x"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
