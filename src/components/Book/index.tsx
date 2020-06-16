@@ -40,7 +40,7 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
   const [rendered, setRendered] = useState(false)
   const [mode, setMode] = useState("interior")
   const location = useLocation()
-  const defaultOptions = {
+  const defaultOptions: URLOptions = {
     author: true,
     description: true,
     source: true,
