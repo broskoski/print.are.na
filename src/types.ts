@@ -82,4 +82,7 @@ export interface Channel {
   user: {
     username?: string
   }
+  group?: {
+    name: string
+  }
 }

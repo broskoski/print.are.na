@@ -22,6 +22,27 @@ class API {
     return this.getFullChannel(slug)
   }
 
+  getInitialChannel = (
+    slug: string,
+    options: {
+      isShare?: boolean
+      reverse?: boolean
+    }
+  ) => {
+    const fetchOptions = options.isShare
+      ? { headers: { "X-SHARE-TOKEN": slug } }
+      : {}
+    const order = options && options.reverse ? "desc" : "asc"
+    const baseUrl = options.isShare
+      ? `${BASE}/channels/by_share_link/${slug}`
+      : `${BASE}/channels/${slug}`
+
+    return this.get(
+      `${baseUrl}?per=1&page=1&sort=position&direction=${order}&t=${Date.now()}`,
+      fetchOptions
+    )
+  }
+
   getFullChannel = (
     slug: string,
     options?: {
@@ -34,16 +55,14 @@ class API {
     const PER = 50
     const mergedContents: any = []
     const isShare = options && options.isShare
+    const reverse = options && options.reverse
 
     const fetchOptions = isShare ? { headers: { "X-SHARE-TOKEN": slug } } : {}
-    const order = options && options.reverse ? "desc" : "asc"
+    const order = reverse ? "desc" : "asc"
 
     const getChannelPage = (slug: string, page: number) => {
       options && options.onEachPage && options.onEachPage(page)
-      const baseUrl =
-        isShare && page === 1
-          ? `${BASE}/channels/by_share_link/${slug}`
-          : `${BASE}/channels/${slug}`
+      const baseUrl = `${BASE}/channels/${slug}`
 
       return this.get(
         `${baseUrl}?per=${PER}&page=${page}&sort=position&direction=${order}&t=${Date.now()}`,
@@ -51,7 +70,7 @@ class API {
       )
     }
 
-    return getChannelPage(slug, 1).then(channel => {
+    return this.getInitialChannel(slug, { isShare, reverse }).then(channel => {
       if (channel.code) {
         throw new Error(channel.message)
       }
@@ -65,7 +84,7 @@ class API {
 
       return Array(totalPages)
         .fill(undefined)
-        .map((_, pageN) => pageN + 2)
+        .map((_, pageN) => pageN + 1)
         .reduce(
           (promise, pageN) =>
             promise

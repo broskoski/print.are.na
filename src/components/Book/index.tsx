@@ -156,6 +156,7 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
       (channel.owner.class === "User"
         ? channel.owner.username
         : channel.owner.name)) ||
+    (channel.group && channel.group.name) ||
     channel.user.username ||
     ""
 
