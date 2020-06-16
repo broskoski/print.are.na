@@ -21,7 +21,7 @@ const Container = styled.div`
   }
 `
 
-const ContainerWithMargin = styled(Container)``
+const ContainerWithMargin = styled(Container as any)``
 
 const Img = styled.img`
   max-width: 100%;
@@ -59,7 +59,7 @@ const P = styled.p<{ hasAuthor?: boolean }>`
   `}
 `
 
-const BigP = styled(P)`
+const BigP = styled(P as any)`
   font-size: 30pt;
   line-height: 1.1;
   > p:first-child {
@@ -80,11 +80,11 @@ const SmallType = styled.div`
   word-break: break-word;
 `
 
-const Source = styled(SmallType)`
+const Source = styled(SmallType as any)`
   margin-top: 0;
 `
 
-const Description = styled(SmallType)`
+const Description = styled(SmallType as any)`
   position: absolute;
   top: 0;
   bottom: 0;
