@@ -75,8 +75,6 @@ class API {
         throw new Error(channel.message)
       }
 
-      mergedContents.push(channel.contents)
-
       const totalPages = Math.ceil((channel.length - 1) / PER)
 
       options && options.onGetTotal && options.onGetTotal(totalPages)
