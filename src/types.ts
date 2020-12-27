@@ -80,6 +80,7 @@ export interface Channel {
     slug?: string
   }
   user: {
+    slug?: string
     username?: string
   }
   group?: {

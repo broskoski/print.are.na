@@ -155,9 +155,14 @@ const CoverSpread: React.FC<CoverSpreadProps> = ({ channel, onClose }) => {
   const pageCount = singlePageCount > 0 ? singlePageCount : spreadCount * 2
 
   const author =
-    (channel.owner.class === "User"
-      ? channel.owner.username
-      : channel.owner.name) || ""
+    (channel.owner && channel.owner.class === "Group"
+      ? channel.owner.name
+      : channel.user.username) || ""
+
+  const slug =
+    (channel.owner && channel.owner.class === "Group"
+      ? channel.owner.slug
+      : channel.user.slug) || ""
 
   useEffect(() => {
     // Create and append style
@@ -191,9 +196,7 @@ const CoverSpread: React.FC<CoverSpreadProps> = ({ channel, onClose }) => {
       <Interior pages={pageCount}>
         <Page>
           <Logo />
-          <URL>
-            {`https://www.are.na/${channel.owner.slug}/${channel.slug}`}
-          </URL>
+          <URL>{`https://www.are.na/${slug}/${channel.slug}`}</URL>
         </Page>
         <Spine pages={pageCount}>
           <SpineTitleHolder pages={pageCount}>{channel.title}</SpineTitleHolder>
