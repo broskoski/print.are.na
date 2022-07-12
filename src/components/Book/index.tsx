@@ -97,8 +97,8 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
         },
         pageSetup: {
           size: {
-            width: "4.25in",
-            height: "6.875in",
+            width: "148mm",
+            height: "210mm",
           },
           margin: {
             top: "0.3in",

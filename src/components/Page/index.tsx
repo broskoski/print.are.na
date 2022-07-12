@@ -88,7 +88,7 @@ const Description = styled(SmallType as any)`
   position: absolute;
   top: 0;
   bottom: 0;
-  height: 6.275in;
+  height: 190mm;
   width: 100%;
   font-weight: normal;
   display: flex;

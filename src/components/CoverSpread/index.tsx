@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { Channel } from "../../types"
 
 const PAGE_DEPTH = 0.003345
-const PAGE_WIDTH = 4.375
+const PAGE_WIDTH = 5.82677
 const SPREAD_WIDTH = PAGE_WIDTH * 2
 
 const Container = styled.div`
@@ -102,7 +102,7 @@ const URL = styled.div`
 
 const Page = styled.div`
   width: ${PAGE_WIDTH}in;
-  height: 6.275in;
+  height: 190mm;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -115,7 +115,7 @@ const CoverInner = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 6.275in;
+  height: 190mm;
 `
 
 const Buttons = styled.div`
