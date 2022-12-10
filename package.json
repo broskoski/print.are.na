@@ -16,7 +16,7 @@
     "bindery": "https://github.com/aredotna/bindery",
     "bindery-controls": "^1.1.2",
     "lodash": "^4.17.15",
-    "qs": "^6.9.1",
+    "qs": "^6.9.7",
     "query-string": "^6.13.1",
     "react": "^16.9.0",
     "react-device-detect": "^1.11.14",
