@@ -89,6 +89,8 @@ const Home: React.FC = ({ ...props }) => {
     toc: true,
     isShare: false,
     reverse: true,
+    width: "4.25in",
+    height: "6.875in",
   })
 
   const onOptionChange = (
@@ -101,11 +103,17 @@ const Home: React.FC = ({ ...props }) => {
     }))
   }
 
+  const onSizeChange = (width: string, height: string) => {
+    setOptions(prevOptions => ({
+      ...prevOptions,
+      width,
+      height ,
+    }))
+  }
+
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const splitURL = url && url.split("/")
-
-    console.log("splitURL", splitURL)
 
     if (
       (splitURL && splitURL.length !== 5) ||
@@ -115,15 +123,12 @@ const Home: React.FC = ({ ...props }) => {
     }
 
     if (splitURL && splitURL[3] === "share") {
-      console.log("is_share")
       options["isShare"] = true
     }
 
     const slug = splitURL && splitURL.pop()
 
     if (!slug) return false
-
-    console.log({ slug, options })
 
     history.push(`/book/${slug}?${stringify(options)}`)
   }
@@ -182,6 +187,30 @@ const Home: React.FC = ({ ...props }) => {
                     onChange={e => onOptionChange("reverse", !options.reverse)}
                   />
                   <label>reverse chronological order (newest first)</label>
+                </Option>
+
+                <Option>
+                  <select
+                    onChange={(e) => {
+                      // Get width and height based on key
+                      const size = e.target.value
+                      
+                      let width = "4.25in"
+                      let height = "6.875in"
+                      
+                      if (size === "letter") {
+                        width = "4.5in"
+                        height = "5.5in"
+                      }
+
+                      onSizeChange(width, height)
+                    }}
+                  >
+                    <option value="default">Default page size (4.25in x 6.875in)</option>
+                    <option value="letter">8.5 x 11</option>
+                    
+                  </select>
+                  <label>Page size</label>
                 </Option>
               </Options>
               <br />

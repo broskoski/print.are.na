@@ -88,7 +88,7 @@ const Description = styled(SmallType as any)`
   position: absolute;
   top: 0;
   bottom: 0;
-  height: 6.275in;
+  height: calc(var(--bindery-page-height) - 0.5in);
   width: 100%;
   font-weight: normal;
   display: flex;
@@ -119,7 +119,7 @@ const Page: React.FC<PageProps> = ({ block, options }) => {
   const blockIsLargeType =
     block.class === "Text" && block.content_html.length < TEXT_THRESHOLD
 
-  const hasDescription = block.description_html !== ""
+  const hasDescription = block?.description_html !== ""
   const imageRatio =
     block.dimensions &&
     block.dimensions.width &&
@@ -130,8 +130,8 @@ const Page: React.FC<PageProps> = ({ block, options }) => {
 
   const longDescription =
     hasDescription && longImage
-      ? block.description_html.length > LONG_IMAGE_DESCRIPTION_THRESHOLD
-      : block.description_html.length > DESCRIPTION_THRESHOLD
+      ? block.description_html?.length > LONG_IMAGE_DESCRIPTION_THRESHOLD
+      : block.description_html?.length > DESCRIPTION_THRESHOLD
 
   return (
     <ContainerWithMargin className="page">

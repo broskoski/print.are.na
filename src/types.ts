@@ -59,6 +59,8 @@ export interface URLOptions {
   bleed?: string
   isShare?: boolean
   reverse?: boolean
+  width?: string
+  height?: string
 }
 
 export interface Channel {
