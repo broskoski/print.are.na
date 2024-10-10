@@ -81,7 +81,12 @@ const Button = styled.button`
 
 const Home: React.FC = ({ ...props }) => {
   const history = useHistory()
-  const [url, setUrl] = useState<string | null>("")
+
+  // Get intial state for URL and options
+  const urlParams = new URLSearchParams(window.location.search)
+  const passedUrl = urlParams.get("url") || ""
+
+  const [url, setUrl] = useState<string | null>(passedUrl)
   const [options, setOptions] = useState<URLOptions>({
     author: true,
     source: true,
@@ -148,6 +153,7 @@ const Home: React.FC = ({ ...props }) => {
                 type="text"
                 name="url"
                 placeholder=""
+                value={url || ""}
               />
               <Text>2. (Optional) Choose your settings:</Text>
               <Options>
