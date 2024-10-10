@@ -49,6 +49,18 @@ const Options = styled.div`
 const Option = styled.div`
   display: flex;
   align-items: center;
+
+  select {
+    margin-top: 0.25em;
+    font-size: 18pt;
+    height: 2em;
+  }
+`
+
+const Spacer = styled.div`
+  height: 1em;
+  // Break flex
+  flex-basis: 100%;
 `
 
 const Checkbox = styled.input.attrs({ type: "checkbox" })`
@@ -194,7 +206,8 @@ const Home: React.FC = ({ ...props }) => {
                   />
                   <label>reverse chronological order (newest first)</label>
                 </Option>
-
+                <Spacer />
+                <label>Page size</label>
                 <Option>
                   <select
                     onChange={(e) => {
@@ -214,9 +227,7 @@ const Home: React.FC = ({ ...props }) => {
                   >
                     <option value="default">Default page size (4.25in x 6.875in)</option>
                     <option value="letter">8.5 x 11</option>
-                    
                   </select>
-                  <label>Page size</label>
                 </Option>
               </Options>
               <br />
