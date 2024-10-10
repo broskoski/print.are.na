@@ -238,8 +238,11 @@ const Home: React.FC = ({ ...props }) => {
         <a href="https://github.com/GeneralTrademark/print-arena">
           print.are.na
         </a>{" "}
+        
         was created by <a href="https://callil.com">Callil Capuozzo</a> for the
         2017 Cybernetics Conference.
+        <br /><br />
+        <strong>Note:</strong> First time using print.are.na? Watch this{" "}<a href="/demo">short instructional video</a>.
       </Bottom>
       <NoticeContainer>
         <Notice id="demo">
