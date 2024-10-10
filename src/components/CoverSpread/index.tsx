@@ -102,7 +102,7 @@ const URL = styled.div`
 
 const Page = styled.div`
   width: ${PAGE_WIDTH}in;
-  height: var(--bindery-page-height);
+  height: calc(var(--bindery-page-height) - 0.5in);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -115,7 +115,7 @@ const CoverInner = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: var(--bindery-page-height);
+  height: calc(var(--bindery-page-height) - 0.5in);
 `
 
 const Buttons = styled.div`
