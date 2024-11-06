@@ -47,6 +47,10 @@ const Style = createGlobalStyle`
     margin-top: 0.335in;
   }
 
+  .about-page.📖-continuation.📖-continues {
+    margin-top: 0;
+  }
+
   .toc-page.page.📖-continuation.📖-continues {
     margin-top: 0;
   }
