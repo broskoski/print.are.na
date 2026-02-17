@@ -3,7 +3,8 @@ import styled from "styled-components"
 
 import { Channel } from "../../types"
 
-const PAGE_DEPTH = 0.0024294872
+const PAGE_DEPTH = 1 / 444
+const SPINE_OFFSET = 0.06
 const PAGE_WIDTH = 4.375
 const SPREAD_WIDTH = PAGE_WIDTH * 2
 
@@ -22,7 +23,7 @@ const Container = styled.div`
 
 const Interior = styled.div<{ pages: number }>`
   height: var(--bindery-page-height);
-  width: ${props => props.pages * PAGE_DEPTH + SPREAD_WIDTH}in;
+  width: ${props => props.pages * PAGE_DEPTH + SPINE_OFFSET + SPREAD_WIDTH}in;
   background: white;
   position: relative;
   display: flex;
@@ -34,7 +35,7 @@ const Interior = styled.div<{ pages: number }>`
 
 const Spine = styled.div<{ pages: number }>`
   height: 100%;
-  width: ${props => props.pages * PAGE_DEPTH}in;
+  width: ${props => props.pages * PAGE_DEPTH + SPINE_OFFSET}in;
   padding-top: 0.2in;
 
   position: relative;
@@ -48,17 +49,17 @@ const Spine = styled.div<{ pages: number }>`
 
 const SpineTitleHolder = styled.div<{ pages: number }>`
   transform-origin: 0 0;
-  transform: rotate(90deg) translateY(-${props => props.pages * PAGE_DEPTH}in)
+  transform: rotate(90deg) translateY(-${props => props.pages * PAGE_DEPTH + SPINE_OFFSET}in)
     translateX(0.35in);
 
   width: var(--bindery-sheet-width);
-  height: ${props => props.pages * PAGE_DEPTH}in;
+  height: ${props => props.pages * PAGE_DEPTH + SPINE_OFFSET}in;
   position: absolute;
   left: -1px;
   right: 0;
   top: 0;
 
-  line-height: ${props => props.pages * PAGE_DEPTH}in;
+  line-height: ${props => props.pages * PAGE_DEPTH + SPINE_OFFSET}in;
 
   display: flex;
   align-items: center;
@@ -169,11 +170,11 @@ const CoverSpread: React.FC<CoverSpreadProps> = ({ channel, onClose }) => {
     const head = document.head || document.getElementsByTagName("head")[0]
     const style = document.createElement("style")
     const css = `@page {
-      size: ${SPREAD_WIDTH + pageCount * PAGE_DEPTH}in 7.125in;
+      size: ${SPREAD_WIDTH + pageCount * PAGE_DEPTH + SPINE_OFFSET}in 7.125in !important;
+      margin: 0 !important;
     }`
 
     style.id = "coverStyle"
-    style.type = "text/css"
     style.appendChild(document.createTextNode(css))
     head.appendChild(style)
 

@@ -157,7 +157,7 @@ const Page: React.FC<PageProps> = ({ block, options }) => {
         block.description_html && <PageBreak />}
 
       {longDescription && block.description_html && options.description && (
-        <P dangerouslySetInnerHTML={{ __html: block.description_html }} />
+        <P dangerouslySetInnerHTML={{ __html: block.description_html }} hasAuthor={options.author} />
       )}
 
       <Description>
