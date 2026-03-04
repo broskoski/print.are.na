@@ -104,7 +104,6 @@ const Home: React.FC = ({ ...props }) => {
     source: true,
     description: true,
     toc: true,
-    isShare: false,
     reverse: true,
     width: "4.25in",
     height: "6.875in",
@@ -137,10 +136,6 @@ const Home: React.FC = ({ ...props }) => {
       (splitURL && splitURL[2] !== "are.na" && splitURL[2] !== "www.are.na")
     ) {
       return history.push(`/error/not_a_channel`)
-    }
-
-    if (splitURL && splitURL[3] === "share") {
-      options["isShare"] = true
     }
 
     const slug = splitURL && splitURL.pop()

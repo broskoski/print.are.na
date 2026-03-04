@@ -57,7 +57,6 @@ export interface URLOptions {
   toc: boolean
   defaultTo?: "print" | "preview" | "flipbook"
   bleed?: string
-  isShare?: boolean
   reverse?: boolean
   width?: string
   height?: string
