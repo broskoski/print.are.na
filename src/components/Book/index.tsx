@@ -42,6 +42,8 @@ const defaultOptions: URLOptions = {
   toc: true,
   defaultTo: "preview",
   bleed: "0.25in",
+  width: "4.25in",
+  height: "6.875in",
 }
 
 const Book: React.FC<BookProps> = ({ channel, contents }) => {
@@ -97,8 +99,8 @@ const Book: React.FC<BookProps> = ({ channel, contents }) => {
         },
         pageSetup: {
           size: {
-            width: "4.25in",
-            height: "6.875in",
+            width: options.width,
+            height: options.height,
           },
           margin: {
             top: "0.3in",

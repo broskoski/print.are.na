@@ -47,6 +47,10 @@ const Style = createGlobalStyle`
     margin-top: 0.335in;
   }
 
+  .about-page.📖-continuation.📖-continues {
+    margin-top: 0;
+  }
+
   .toc-page.page.📖-continuation.📖-continues {
     margin-top: 0;
   }
@@ -66,8 +70,6 @@ const Style = createGlobalStyle`
   @page {
     size: var(--bindery-page-width) var(--bindery-page-height);
     margin: 0 !important;
-    width: var(--bindery-page-width) !important;
-    height: var(--bindery-page-height) !important;
   }
 `
 

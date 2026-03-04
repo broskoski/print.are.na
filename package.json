@@ -28,7 +28,7 @@
     "typescript": "^3.6.3"
   },
   "engines": {
-    "node": "12.x.x",
+    "node": "16.20.2",
     "yarn": "1.x.x"
   },
   "scripts": {

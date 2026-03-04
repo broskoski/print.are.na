@@ -49,6 +49,18 @@ const Options = styled.div`
 const Option = styled.div`
   display: flex;
   align-items: center;
+
+  select {
+    margin-top: 0.25em;
+    font-size: 18pt;
+    height: 2em;
+  }
+`
+
+const Spacer = styled.div`
+  height: 1em;
+  // Break flex
+  flex-basis: 100%;
 `
 
 const Checkbox = styled.input.attrs({ type: "checkbox" })`
@@ -81,7 +93,12 @@ const Button = styled.button`
 
 const Home: React.FC = ({ ...props }) => {
   const history = useHistory()
-  const [url, setUrl] = useState<string | null>("")
+
+  // Get intial state for URL and options
+  const urlParams = new URLSearchParams(window.location.search)
+  const passedUrl = urlParams.get("url") || ""
+
+  const [url, setUrl] = useState<string | null>(passedUrl)
   const [options, setOptions] = useState<URLOptions>({
     author: true,
     source: true,
@@ -89,6 +106,8 @@ const Home: React.FC = ({ ...props }) => {
     toc: true,
     isShare: false,
     reverse: true,
+    width: "4.25in",
+    height: "6.875in",
   })
 
   const onOptionChange = (
@@ -101,11 +120,17 @@ const Home: React.FC = ({ ...props }) => {
     }))
   }
 
+  const onSizeChange = (width: string, height: string) => {
+    setOptions(prevOptions => ({
+      ...prevOptions,
+      width,
+      height ,
+    }))
+  }
+
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const splitURL = url && url.split("/")
-
-    console.log("splitURL", splitURL)
 
     if (
       (splitURL && splitURL.length !== 5) ||
@@ -115,15 +140,12 @@ const Home: React.FC = ({ ...props }) => {
     }
 
     if (splitURL && splitURL[3] === "share") {
-      console.log("is_share")
       options["isShare"] = true
     }
 
     const slug = splitURL && splitURL.pop()
 
     if (!slug) return false
-
-    console.log({ slug, options })
 
     history.push(`/book/${slug}?${stringify(options)}`)
   }
@@ -143,6 +165,7 @@ const Home: React.FC = ({ ...props }) => {
                 type="text"
                 name="url"
                 placeholder=""
+                value={url || ""}
               />
               <Text>2. (Optional) Choose your settings:</Text>
               <Options>
@@ -183,6 +206,29 @@ const Home: React.FC = ({ ...props }) => {
                   />
                   <label>reverse chronological order (newest first)</label>
                 </Option>
+                <Spacer />
+                <label>Page size</label>
+                <Option>
+                  <select
+                    onChange={(e) => {
+                      // Get width and height based on key
+                      const size = e.target.value
+                      
+                      let width = "4.25in"
+                      let height = "6.875in"
+                      
+                      if (size === "letter") {
+                        width = "4.5in"
+                        height = "5.5in"
+                      }
+
+                      onSizeChange(width, height)
+                    }}
+                  >
+                    <option value="default">Default page size (4.25in x 6.875in)</option>
+                    <option value="letter">8.5 x 11</option>
+                  </select>
+                </Option>
               </Options>
               <br />
               <Text>
@@ -203,8 +249,11 @@ const Home: React.FC = ({ ...props }) => {
         <a href="https://github.com/GeneralTrademark/print-arena">
           print.are.na
         </a>{" "}
+        
         was created by <a href="https://callil.com">Callil Capuozzo</a> for the
         2017 Cybernetics Conference.
+        <br /><br />
+        <strong>Note:</strong> First time using print.are.na? Watch this{" "}<a href="/demo">short instructional video</a>.
       </Bottom>
       <NoticeContainer>
         <Notice id="demo">

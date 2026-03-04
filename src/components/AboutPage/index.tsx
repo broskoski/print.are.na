@@ -16,6 +16,10 @@ const Container = styled.div`
   display: flex;
   height: 100%;
   flex-direction: row;
+
+  > p:first-child {
+    margin: 0;
+  }
 `
 
 interface AboutPageProps {
