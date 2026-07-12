@@ -39,6 +39,7 @@ const defaultOptions: URLOptions = {
   author: true,
   description: true,
   source: true,
+  title: true,
   toc: true,
   defaultTo: "preview",
   bleed: "0.25in",

@@ -11,6 +11,10 @@ const HiddenTitle = styled.h1`
   display: none;
 `
 
+const BlockAnchor = styled.a`
+  display: none;
+`
+
 const Container = styled.div`
   display: flex;
   height: 100%;
@@ -137,7 +141,11 @@ const Page: React.FC<PageProps> = ({ block, options }) => {
     <ContainerWithMargin className="page">
       <HiddenTitle>{block.title}</HiddenTitle>
 
-      <Header title={block.title} id={block.id} />
+      {options.title ? (
+        <Header title={block.title} id={block.id} />
+      ) : (
+        <BlockAnchor id={block.id.toString()} />
+      )}
 
       {block.hasImage && <Img src={block.imageUrl} alt={block.title} />}
 

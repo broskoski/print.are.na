@@ -54,6 +54,7 @@ export interface URLOptions {
   author: boolean
   source: boolean
   description: boolean
+  title: boolean
   toc: boolean
   defaultTo?: "print" | "preview" | "flipbook"
   bleed?: string

@@ -103,6 +103,7 @@ const Home: React.FC = ({ ...props }) => {
     author: true,
     source: true,
     description: true,
+    title: true,
     toc: true,
     reverse: true,
     width: "4.25in",
@@ -110,7 +111,7 @@ const Home: React.FC = ({ ...props }) => {
   })
 
   const onOptionChange = (
-    key: "author" | "source" | "description" | "toc" | "reverse",
+    key: "author" | "source" | "description" | "title" | "toc" | "reverse",
     value: boolean
   ) => {
     setOptions(prevOptions => ({
@@ -193,6 +194,13 @@ const Home: React.FC = ({ ...props }) => {
                     }
                   />
                   <label>display description</label>
+                </Option>
+                <Option>
+                  <Checkbox
+                    checked={options.title}
+                    onChange={e => onOptionChange("title", !options.title)}
+                  />
+                  <label>display block title</label>
                 </Option>
                 <Option>
                   <Checkbox
