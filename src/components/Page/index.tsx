@@ -15,6 +15,14 @@ const BlockAnchor = styled.a`
   display: none;
 `
 
+// Occupies the same vertical space as the Header so content
+// clears the running-header page number when titles are hidden
+const HeaderSpacer = styled.div`
+  min-height: 0.175in;
+  margin-bottom: 0.175in;
+  margin-top: -0.1em;
+`
+
 const Container = styled.div`
   display: flex;
   height: 100%;
@@ -144,7 +152,9 @@ const Page: React.FC<PageProps> = ({ block, options }) => {
       {options.title ? (
         <Header title={block.title} id={block.id} />
       ) : (
-        <BlockAnchor id={block.id.toString()} />
+        <HeaderSpacer>
+          <BlockAnchor id={block.id.toString()} />
+        </HeaderSpacer>
       )}
 
       {block.hasImage && <Img src={block.imageUrl} alt={block.title} />}
